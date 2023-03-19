@@ -5,7 +5,7 @@ export const useWatchlistContext = () => {
   const context = useContext(WatchlistContext)
 
   if (!context) {
-    throw Error(
+    throw new Error(
       'useWatchlistContext must be used inside an instance of WatchlistContext'
     )
   }

@@ -3,9 +3,9 @@ import { useWatchlistContext } from '../Hooks/useWatchlistContext'
 
 const endpoint = 'api/watchlist/'
 
-export const DeleteStock = async (ticker) => {
+export const DeleteStock = async (ticker: {_id: string}) => {
   const { dispatch } = useWatchlistContext()
-  const [error, setError] = useState(null)
+  const [error, setError] = useState<string | null>(null)
 
   const response = await fetch(
     `${process.env.REACT_APP_BACKEND_API}${endpoint}${ticker._id}`,
