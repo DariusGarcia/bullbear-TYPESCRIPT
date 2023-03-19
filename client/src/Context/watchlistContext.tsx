@@ -6,7 +6,7 @@ type Stock = {
 };
 
 type State = {
-  watchlist: Stock[];
+  watchlist: Stock[] | [];
 };
 
 type Action =
@@ -15,7 +15,7 @@ type Action =
   | { type: 'DELETE_STOCK'; payload: Stock };
 
 type ContextType = {
-  watchlist: Stock[];
+  watchlist: Stock[] | [];
   dispatch: React.Dispatch<Action>;
 };
 
@@ -29,7 +29,7 @@ export const watchlistReducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'SET_WATCHLIST':
       return {
-        watchlist: action.payload,
+        watchlist: action.payload ,
       };
     case 'ADD_STOCK':
       return {
