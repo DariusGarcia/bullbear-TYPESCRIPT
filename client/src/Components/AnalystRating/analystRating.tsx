@@ -1,5 +1,15 @@
+
 import formatTime from '../../utils/formatTime'
-export default function AnalystRating({ stockRatings }) {
+
+interface Props {
+  stockRatings: {
+    ratingRecommendation: string;
+    ratingScore: number;
+    date: string;
+  }[];
+}
+
+export default function AnalystRating({ stockRatings }: Props): JSX.Element{
   return (
     stockRatings && (
       <article className='flex flex-col  items-start mb-8 md:mb-0 '>

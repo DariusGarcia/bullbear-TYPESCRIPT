@@ -7,12 +7,16 @@ const headerOptions = {
   'Content-Type': 'application/json',
 }
 
+type LoginResponse = {
+  error: string;
+};
+
 export const useLogin = () => {
-  const [error, setError] = useState(null)
-  const [isLoading, setIsLoading] = useState(null)
+  const [error, setError] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState<null | Boolean>(null)
   const { dispatch } = useAuthContext()
 
-  const login = async (username, password) => {
+  const login = async (username: String, password: String) => {
     setIsLoading(true)
     setError(null)
     const response = await fetch(API, {
@@ -21,7 +25,7 @@ export const useLogin = () => {
       body: JSON.stringify({ username, password }),
     })
 
-    const json = await response.json()
+    const json: LoginResponse = await response.json()
     if (!response.ok) {
       setIsLoading(false)
       setError(json.error)

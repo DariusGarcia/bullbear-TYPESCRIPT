@@ -1,4 +1,4 @@
-export default function time_ago(time) {
+export default function time_ago(time: number | string | Date | any): string | number {
 	switch (typeof time) {
 		case 'number':
 			break
@@ -11,7 +11,7 @@ export default function time_ago(time) {
 		default:
 			time = +new Date(time.replace(/-/g, '/'))
 	}
-	var time_formats = [
+	var time_formats: [number, string, number | string][] = [
 		[60, 'seconds', 1], // 60
 		[120, '1 minute ago', '1 minute from now'], // 60*2
 		[3600, 'minutes', 60], // 60*60, 60
@@ -51,6 +51,3 @@ export default function time_ago(time) {
 	return time
 }
 
-var aDay = 24 * 60 * 60 * 1000
-console.log(time_ago(new Date(Date.now() - aDay)))
-console.log(time_ago(new Date(Date.now() - aDay * 2)))

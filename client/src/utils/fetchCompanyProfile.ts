@@ -1,7 +1,7 @@
 const BASE_URL = 'https://fmpcloud.io/api/v3/profile/'
 
 // fetches stock metrics/stats
-export const FetchCompanyProfile = async (stock) => {
+export const FetchCompanyProfile = async (stock: String) => {
 	const api = `${BASE_URL}${stock}?apikey=${process.env.REACT_APP_API_KEY}`
 
 	return await fetch(api)

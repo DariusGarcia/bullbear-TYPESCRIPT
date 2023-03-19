@@ -1,6 +1,6 @@
 // fetches stock ratings based on different sources
 
-export const FetchStockRatings = async (stock) => {
+export const FetchStockRatings = async (stock: String) => {
 	const BASE_URL = `https://fmpcloud.io/api/v3/rating/${stock}?apikey=`
 	const api = `${BASE_URL}${process.env.REACT_APP_API_KEY}`
 

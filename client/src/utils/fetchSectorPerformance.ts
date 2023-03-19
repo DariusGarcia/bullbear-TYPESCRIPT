@@ -1,5 +1,7 @@
-// fetches news articles about the stock
-// limited to 5
+/**
+ *  fetches stock sector performances
+ *
+ */
 
 export const FetchSectorPerformance = async () => {
 	const BASE_URL = 'https://fmpcloud.io/api/v3/sectors-performance?apikey='

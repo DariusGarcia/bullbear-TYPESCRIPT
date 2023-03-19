@@ -12,7 +12,7 @@ export const useLogout = () => {
 
 		// dispatch LOGOUT action
 		dispatch({ type: 'LOGOUT' })
-		watchlistDispatch({ type: 'SET_WATCHLIST', payload: null })
+		watchlistDispatch({ type: 'SET_WATCHLIST', payload: [] })
 	}
 
 	return { logout }

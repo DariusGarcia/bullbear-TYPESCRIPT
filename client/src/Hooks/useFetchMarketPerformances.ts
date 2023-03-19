@@ -1,4 +1,4 @@
-export const UseFetchMarketPerformances = async (query) => {
+export const UseFetchMarketPerformances: Object = async (query: String) => {
   const api =
     process.env.REACT_APP_MARKET_ACTIVITY +
     `${query}?apikey=` +
