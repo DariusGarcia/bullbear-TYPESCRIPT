@@ -1,48 +1,62 @@
 import { useEffect } from 'react'
 import { Fragment, useState } from 'react'
-import { Dialog, Menu, Transition } from '@headlessui/react'
+import { Dialog, Transition } from '@headlessui/react'
 import { useAuthContext } from '../Hooks/useAuthContext'
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import SearchStockContainer from '../Components/searchStockContainer'
 import { Watchlist } from '../Components/Watchlist/watchlist'
 import { useLogout } from '../Hooks/useLogout'
 // prettier-ignore
-import {Bars3BottomLeftIcon, CogIcon, HomeIcon, PhotoIcon, PlusIcon, RectangleStackIcon, Squares2X2Icon, UserGroupIcon, XMarkIcon} from '@heroicons/react/24/outline'
+import {Bars3BottomLeftIcon, CogIcon, HomeIcon, XMarkIcon} from '@heroicons/react/24/outline'
 import { AiOutlineStock } from 'react-icons/ai'
 import { BsTextParagraph } from 'react-icons/bs'
 import Spinner from '../Components/Spinners/spinner'
 
+type SidebarNavItem = {
+  name: string,
+  href: string,
+  icon: React.ElementType,
+  current: boolean,
+}
+
 // prettier-ignore
-const sidebarNavigation = [
+const sidebarNavigation: SidebarNavItem[] = [
   { name: 'Home', href: '/', icon: HomeIcon, current: false },
   { name: 'Dashboard', href: '/dashboard', icon: AiOutlineStock, current: true},
   { name: 'Market', href: '/market', icon: BsTextParagraph, current: false },
 ]
 
-function classNames(...classes) {
+function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function Dashboard() {
   const { logout } = useLogout()
-  const [value, setValue] = useState('')
-  const [ticker, setTicker] = useState([])
-  const [isLoading, setLoading] = useState(false)
+  const [value, setValue] = useState<string>('')
+  const [ticker, setTicker] = useState<string[]>([])
+  const [isLoading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
     document.title = 'BullBear - Dashboard'
   }, [])
-  const handleChange = (event) => {
-    const stock = event.target.value.trim()
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const stock = e.target.value.trim()
     setValue(stock)
   }
-  const handleSubmit = (event) => {
-    event.preventDefault()
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
     if (!ticker.includes(value)) {
       setTicker(ticker.concat(value))
       setValue('')
     }
+  }
+
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
+    e.target.value = e.target.value.toUpperCase()
+
   }
 
   const { user } = useAuthContext()
@@ -205,14 +219,14 @@ export default function Dashboard() {
                       <input
                         value={value}
                         onChange={handleChange}
-                        onInput={(e) => (e.target.value = ('' + e.target.value).toUpperCase())}
+                        onInput={handleInput}
                         name='search-field'
                         id='search-field'
                         className='h-full w-full rounded-r-lg md:rounded-lg focus-text-white focus-bg-white bg-grey py-2 pl-10 pr-3 text-base text-white placeholder-grey3 focus:border-transparent focus:grey3 focus:outline-none focus:ring-0'
                         placeholder='Search stock e.g. AAPL'
                         aria-label='search stock ticker input'
                       />
-                      <button onSubmit={handleSubmit} type='submit' id='dashboard-search-stock-btn' className=' mx-4 md:mx-0s md:mb-2 md:w-1/4 md:h-16 text-sm p-4 flex text-center justify-center items-center  transition ease-in-out delay-25 bg-lightBlue bg-opacity-20 border-2 hover:bg-opacity-100 border-lightBlue text-white hover:text-white rounded-lg'>
+                      <button type='submit' id='dashboard-search-stock-btn' className=' mx-4 md:mx-0s md:mb-2 md:w-1/4 md:h-16 text-sm p-4 flex text-center justify-center items-center  transition ease-in-out delay-25 bg-lightBlue bg-opacity-20 border-2 hover:bg-opacity-100 border-lightBlue text-white hover:text-white rounded-lg'>
                         Search
                       </button>
                     </div>
