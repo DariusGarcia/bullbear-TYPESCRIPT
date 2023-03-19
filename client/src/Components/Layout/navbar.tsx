@@ -6,25 +6,37 @@ import { useLogout } from '../../Hooks/useLogout'
 import { AiOutlineMenu } from 'react-icons/ai'
 import { VscChromeClose } from 'react-icons/vsc'
 
-const navigation = [
+interface NavigationLink {
+  name: string;
+  href: string;
+  current: boolean;
+}
+
+interface UserNavigationLink {
+  name: string;
+  href: string;
+}
+
+
+const navigation: NavigationLink[] = [
   { name: 'Home', href: '/', current: true },
   { name: 'Dashboard', href: '/dashboard', current: true },
 ]
-const userNavigation = [
+const userNavigation: UserNavigationLink[] = [
   { name: 'Your Profile', href: '#' },
   { name: 'Settings', href: '#' },
   { name: 'Sign out', href: '#' },
 ]
 
-function classNames(...classes) {
+function classNames(...classes: (string | boolean)[]): string {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Navbar() {
+export default function Navbar(): JSX.Element {
   const { logout } = useLogout()
   const { user } = useAuthContext()
 
-  const handleClick = () => {
+  const handleClick = (): void => {
     logout()
   }
 
@@ -197,7 +209,7 @@ export default function Navbar() {
                       </Link>
 
                       <li className='hover:bg-grey rounded-md p-2'>
-                        <button onClick={handleClick()}>Sign Out</button>
+                        <button onClick={handleClick}>Sign Out</button>
                       </li>
                     </div>
                   )}

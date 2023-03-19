@@ -1,32 +1,33 @@
-import React, { createContext, useReducer, useEffect, ReactNode } from 'react';
+import { createContext, useReducer, useEffect, ReactNode } from 'react';
+
+interface User {
+  username: string;
+  password: string;
+}
 
 interface AuthState {
   isAuthenticated: boolean;
-  user: any;
-}
-
-interface AuthAction {
-  type: string;
-  payload?: any;
+  user: User | null;
 }
 
 interface AuthContextType extends AuthState {
   dispatch: React.Dispatch<AuthAction>;
 }
 
-const AuthContext = createContext<AuthContextType>({
-  isAuthenticated: false,
-  user: null,
-  dispatch: () => {},
-});
+interface AuthAction {
+  type: 'LOGIN' | 'LOGOUT';
+  payload?: User;
+}
 
-const authReducer = (state: AuthState, action: AuthAction): AuthState => {
+export const AuthContext = createContext<AuthContextType>({} as AuthContextType);
+
+export const authReducer = (state: AuthState, action: AuthAction): AuthState => {
   switch (action.type) {
     case 'LOGIN':
       return {
         ...state,
         isAuthenticated: true,
-        user: action.payload,
+        user: action.payload || null,
       };
     case 'LOGOUT':
       return {
@@ -39,20 +40,25 @@ const authReducer = (state: AuthState, action: AuthAction): AuthState => {
   }
 };
 
-const AuthContextProvider = ({ children }: { children: ReactNode }) => {
+interface Props {
+  children: ReactNode;
+}
+
+export const AuthContextProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(authReducer, {
-    user: null,
     isAuthenticated: false,
-    // token: '',
+    user: null,
   });
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const user = JSON.parse(localStorage.getItem('user') || 'null');
 
     if (user) {
       dispatch({ type: 'LOGIN', payload: user });
     }
   }, []);
+
+  console.log('AuthContext state', state);
 
   return (
     <AuthContext.Provider value={{ ...state, dispatch }}>
@@ -60,5 +66,3 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     </AuthContext.Provider>
   );
 };
-
-export { AuthContext, AuthContextProvider };

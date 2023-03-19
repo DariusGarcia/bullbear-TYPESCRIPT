@@ -5,10 +5,14 @@ import Alert from '@mui/material/Alert'
 import { IoCloseOutline } from 'react-icons/io5'
 import IconButton from '@mui/material/IconButton'
 
-export default function SearchStockContainer(props) {
+interface Props {
+  ticker: string[] | null;
+}
+
+export default function SearchStockContainer(props: Props): JSX.Element {
   const { ticker } = props
-  const [error, setError] = useState(null)
-  const [open, setOpen] = useState(true)
+  const [error, setError] = useState<Error | null>(null)
+  const [open, setOpen] = useState<boolean>(true)
 
   return (
     // prettier-ignore
@@ -38,7 +42,7 @@ export default function SearchStockContainer(props) {
                       Price
                     </li>
                   </span>
-                  {ticker <= 0 ? (
+                  {ticker && ticker.length > 0 ? (
                     <span className=''>
                       <li key='changeLabel' className='h-full items-center justify-end flex  md:text-base'>
                         Change
@@ -53,8 +57,8 @@ export default function SearchStockContainer(props) {
                   )}
                 </ul>
               </nav>
-              {!ticker || null ? 
-              (<div className='flex flex-col bg-red h-max mt-4 bg-opacity-20 rounded-lg'> Search </div>) 
+              {!ticker || ticker.length === 0 ? 
+              (<div className='flex flex-col bg-secondary h-max mt-4 p-6 bg-opacity-20 rounded-lg text-white'> Search for a stock</div>) 
               : 
               // TODO: Can't exit out of fallback component when clicking on icon
               (<div className='flex h-max mt-4 bg-opacity-20 rounded-lg flex-col-reverse'>

@@ -3,7 +3,7 @@ import { useAuthContext } from '../../Hooks/useAuthContext'
 import { useLogout } from '../../Hooks/useLogout'
 import { BsGithub } from 'react-icons/bs'
 
-export default function Footer() {
+export default function Footer(): JSX.Element {
   const { logout } = useLogout()
   const { user } = useAuthContext()
 
@@ -76,7 +76,6 @@ const navigation = {
     { name: 'Home', href: '/' },
     { name: 'Dashboard', href: '/dashboard' },
     { name: 'Market', href: '/market' },
-    // { name: 'Profile', href: '/' },
   ],
   social: [
     {

@@ -16,7 +16,6 @@ export const useSignUp = () => {
   const signUp = async (username: String, password: String) => {
     setIsLoading(true)
     setError(null)
-    
 
     const response = await fetch(API, {
       method: 'POST',
@@ -25,7 +24,9 @@ export const useSignUp = () => {
       },
       body: JSON.stringify({ username, password }),
     })
+
     const json = await response.json()
+    
     if (!response.ok) {
       setIsLoading(false)
       setError(json as SignUpError)
