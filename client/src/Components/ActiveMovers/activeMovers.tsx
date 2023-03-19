@@ -1,6 +1,21 @@
+
 import capitalizeFirstLetter from '../../utils/capitalizeFirstLetter'
 
-export default function ActiveMovers({ topMovers, query }) {
+interface Ticker {
+  ticker: string;
+  companyName: string;
+  changesPercentage: number;
+  price: number;
+  changes: number;
+}
+
+interface ActiveMoversProps {
+  topMovers: Ticker[];
+  query: string;
+}
+
+
+export default function ActiveMovers({ topMovers, query }: ActiveMoversProps): JSX.Element {
   const tableTitles = ['Change %', 'Price', 'Change']
 
   return (
@@ -53,7 +68,7 @@ export default function ActiveMovers({ topMovers, query }) {
                             : 'bg-red p-2 rounded-md'
                         }
                       >
-                        {parseInt(ticker.changesPercentage).toFixed(1)}%
+                        {parseInt((ticker.changesPercentage).toString()).toFixed(1)}%
                       </span>
                     </td>
                     <td className=' whitespace-nowrap md:w-56 px-3 py-4 text-sm text-white lg:table-cell'>
@@ -72,3 +87,4 @@ export default function ActiveMovers({ topMovers, query }) {
     )
   )
 }
+
