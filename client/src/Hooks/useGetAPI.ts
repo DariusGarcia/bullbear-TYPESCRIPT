@@ -1,4 +1,4 @@
-export const UseGetAPI = async (stock) => {
+export const UseGetAPI = async (stock: String) => {
   const api =
     process.env.REACT_APP_BASE_URL +
     `${stock}?apikey=` +
