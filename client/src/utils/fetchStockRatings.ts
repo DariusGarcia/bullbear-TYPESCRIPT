@@ -1,11 +1,17 @@
 // fetches stock ratings based on different sources
 
 export const FetchStockRatings = async (stock: String) => {
-	const BASE_URL = `https://fmpcloud.io/api/v3/rating/${stock}?apikey=`
-	const api = `${BASE_URL}${process.env.REACT_APP_API_KEY}`
-
-	return await fetch(api)
+	const api = `${process.env.REACT_APP_BACKEND_STOCK_API}rating`
+	const headerOptions = {
+		'Content-Type': 'application/json',
+	  }
+  
+	return await fetch(api, {
+		method: 'POST',
+		headers: headerOptions,
+		body: JSON.stringify({ stock: stock }),
+	  })
 		.then((results) => results.json())
-		.then((data) => data)
+		.then((data) => data?.stockRating)
 		.catch((err) => console.log(err))
 }
