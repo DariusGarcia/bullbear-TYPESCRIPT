@@ -1,23 +1,23 @@
-import { useEffect } from 'react'
-import { Fragment, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { useAuthContext } from '../Hooks/useAuthContext'
-import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
-import SearchStockContainer from '../Components/searchStockContainer'
-import { Watchlist } from '../Components/Watchlist/watchlist'
-import { useLogout } from '../Hooks/useLogout'
+import { useEffect } from 'react';
+import { Fragment, useState } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { useAuthContext } from '../Hooks/useAuthContext';
+import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
+import SearchStockContainer from '../Components/searchStockContainer';
+import { Watchlist } from '../Components/Watchlist/watchlist';
+import { useLogout } from '../Hooks/useLogout';
 // prettier-ignore
 import {Bars3BottomLeftIcon, CogIcon, HomeIcon, XMarkIcon} from '@heroicons/react/24/outline'
-import { AiOutlineStock } from 'react-icons/ai'
-import { BsTextParagraph } from 'react-icons/bs'
-import Spinner from '../Components/Spinners/spinner'
+import { AiOutlineStock } from 'react-icons/ai';
+import { BsTextParagraph } from 'react-icons/bs';
+import Spinner from '../Components/Spinners/spinner';
 
 type SidebarNavItem = {
-  name: string,
-  href: string,
-  icon: React.ElementType,
-  current: boolean,
-}
+  name: string;
+  href: string;
+  icon: React.ElementType;
+  current: boolean;
+};
 
 // prettier-ignore
 const sidebarNavigation: SidebarNavItem[] = [
@@ -27,40 +27,39 @@ const sidebarNavigation: SidebarNavItem[] = [
 ]
 
 function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(' ');
 }
 
 export default function Dashboard(): JSX.Element {
-  const { logout } = useLogout()
-  const [value, setValue] = useState<string>('')
-  const [ticker, setTicker] = useState<string[]>([])
-  const [isLoading, setLoading] = useState<boolean>(false)
+  const { logout } = useLogout();
+  const [value, setValue] = useState<string>('');
+  const [ticker, setTicker] = useState<string[]>([]);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    document.title = 'BullBear - Dashboard'
-  }, [])
+    document.title = 'BullBear - Dashboard';
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const stock = e.target.value.trim()
-    setValue(stock)
-  }
+    const stock = e.target.value.trim();
+    setValue(stock);
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+    event.preventDefault();
     if (!ticker.includes(value)) {
-      setTicker(ticker.concat(value))
-      setValue('')
+      setTicker(ticker.concat(value));
+      setValue('');
     }
-  }
+  };
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault()
-    e.target.value = e.target.value.toUpperCase()
+    e.preventDefault();
+    e.target.value = e.target.value.toUpperCase();
+  };
 
-  }
-
-  const { user } = useAuthContext()
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { user } = useAuthContext();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     // prettier-ignore
@@ -259,5 +258,5 @@ export default function Dashboard(): JSX.Element {
         </div>
       </div>
     </>
-  )
+  );
 }
