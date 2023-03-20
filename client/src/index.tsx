@@ -8,7 +8,7 @@ import { AuthContextProvider } from './Context/AuthContext'
 import { WatchListContextProvider } from './Context/watchlistContext'
 import ScrollToTop from './utils/ScrollToTop'
 
-const root = ReactDOM.createRoot(document.getElementById('root'))
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <AuthContextProvider>
@@ -25,4 +25,4 @@ root.render(
   </React.StrictMode>
 )
 
-reportWebVitals()
+reportWebVitals(console.log)

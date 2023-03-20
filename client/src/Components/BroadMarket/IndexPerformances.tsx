@@ -4,8 +4,17 @@ import { useState, useEffect } from 'react'
  * @param {object} index The index array object
  * @returns {JSX.Element} - The JSX that the component will render
  */
-export default function IndexPerformances() {
-  const [indexes, setIndexes] = useState([])
+
+ interface Index {
+  symbol: string;
+  name: string;
+  price: number;
+  change: number;
+  changesPercentage: number;
+}
+
+export default function IndexPerformances(): JSX.Element {
+  const [indexes, setIndexes] = useState<Index[]>([])
   const indexList = [
     '^GSPC',
     '^IXIC',

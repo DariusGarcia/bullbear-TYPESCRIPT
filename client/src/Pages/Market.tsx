@@ -1,36 +1,44 @@
 import { Fragment, useState, useEffect } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { useAuthContext } from '../Hooks/useAuthContext'
+// components
 import { Watchlist } from '../Components/Watchlist/watchlist'
-import { BiNews } from 'react-icons/bi'
-import { SiMarketo } from 'react-icons/si'
-import { useLogout } from '../Hooks/useLogout'
+import ActiveMovers from '../Components/ActiveMovers/activeMovers'
 import IndexPerformances from '../Components/BroadMarket/IndexPerformances'
 import StockNews from '../Components/StockCard/stockNews'
 import SectorPerformances from '../Components/BroadMarket/sectorPerformances'
-// prettier-ignore
+import { UseFetchMarketPerformances } from '../Hooks/useFetchMarketPerformances'
+// hooks
+import { useLogout } from '../Hooks/useLogout'
+import { useAuthContext } from '../Hooks/useAuthContext'
+// icons
+import { Dialog, Transition } from '@headlessui/react'
+import { BiNews } from 'react-icons/bi'
+import { SiMarketo } from 'react-icons/si'
 import { Bars3BottomLeftIcon, CogIcon, HomeIcon, XMarkIcon} from '@heroicons/react/24/outline'
 import { AiOutlineStock } from 'react-icons/ai'
 import { BsTextParagraph } from 'react-icons/bs'
-import ActiveMovers from '../Components/ActiveMovers/activeMovers'
-import { UseFetchMarketPerformances } from '../Hooks/useFetchMarketPerformances'
 
-// prettier-ignore
-const sidebarNavigation = [
+interface NavigationItem {
+  name: string;
+  href: string;
+  icon: any;
+  current: boolean;
+  }
+
+const sidebarNavigation: NavigationItem[] = [
   { name: 'Home', href: '/', icon: HomeIcon, current: false },
   { name: 'Dashboard', href: '/dashboard', icon: AiOutlineStock, current: false},
   { name: 'Market', href: '/market', icon: BsTextParagraph, current: true },]
 
-function classNames(...classes) {
+function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Market() {
+export default function Market(): JSX.Element {
   const { logout } = useLogout()
   const { user } = useAuthContext()
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [topGainers, setTopGainers] = useState([])
-  const [topLosers, setTopLosers] = useState([])
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false)
+  const [topGainers, setTopGainers] = useState<any[]>([])
+  const [topLosers, setTopLosers] = useState<any[]>([])
 
   useEffect(() => {
     UseFetchMarketPerformances('gainers')

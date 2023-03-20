@@ -1,8 +1,13 @@
 import { useState, useEffect } from 'react'
 import { FetchSectorPerformance } from '../../utils/fetchSectorPerformance'
 
-export default function SectorPerformances() {
-  const [sectors, setSectors] = useState([])
+interface SectorData {
+  sector: string;
+  changesPercentage: string;
+}
+
+export default function SectorPerformances(): JSX.Element {
+  const [sectors, setSectors] = useState<SectorData[]>([])
 
   useEffect(() => {
     const fetchSectors = async () => {

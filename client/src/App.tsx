@@ -4,15 +4,14 @@ import { useAuthContext } from './Hooks/useAuthContext'
 import './App.css'
 
 // pages & components
-import Signup from './Pages/Signup'
-import Login from './Pages/Login'
 import Landing from './Pages/Landing'
-import Footer from './Components/Layout/footer'
 import Dashboard from './Pages/dashboard'
 import Market from './Pages/Market'
-import Testing from './Pages/testing'
+import Login from './Pages/Login'
+import Signup from './Pages/Signup'
+import Footer from './Components/Layout/footer'
 
-function App() {
+export default function App(): JSX.Element {
   const { user } = useAuthContext()
 
   return (
@@ -22,7 +21,7 @@ function App() {
           <Route path='/' element={<Landing />} />
           <Route
             path='/dashboard'
-            element={<Dashboard options={{ title: 'BullBear - Dashboard' }} />}
+            element={<Dashboard />}
           />
           <Route path='/market' element={<Market />} />
 
@@ -40,12 +39,10 @@ function App() {
               )
             }
           />
-
           <Route
             path='/signup'
             element={!user ? <Signup /> : <Navigate to='/dashboard' />}
           />
-          <Route path='/testing' element={<Testing />} />
         </Routes>
       </div>
       <Footer />
@@ -53,4 +50,3 @@ function App() {
   )
 }
 
-export default App

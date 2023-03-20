@@ -2,8 +2,15 @@ import { useEffect, useState } from 'react'
 import { UseFetchBroadMarketData } from '../../Hooks/useFetchBroadMarketData'
 import { GoTriangleDown } from 'react-icons/go'
 
-export const TopLosers = () => {
-  const [stocks, setStocks] = useState([])
+interface Stock {
+  ticker: string;
+  companyName: string;
+  price: number;
+  changesPercentage: number;
+};
+
+export default function TopLosers(): JSX.Element {
+  const [stocks, setStocks] = useState<Stock[]>([])
 
   useEffect(() => {
     UseFetchBroadMarketData('losers')
@@ -13,7 +20,7 @@ export const TopLosers = () => {
 
   return (
     <>
-      {stocks.map((stock) => (
+      {stocks.map((stock: Stock) => (
         <article
           key={stock.ticker}
           className='text-white w-full bg-primary my-2 px-2 py-4 h-max rounded-lg '

@@ -30,7 +30,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Dashboard() {
+export default function Dashboard(): JSX.Element {
   const { logout } = useLogout()
   const [value, setValue] = useState<string>('')
   const [ticker, setTicker] = useState<string[]>([])
