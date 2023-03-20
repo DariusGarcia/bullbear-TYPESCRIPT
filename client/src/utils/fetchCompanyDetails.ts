@@ -1,11 +1,15 @@
-const BASE_URL = 'https://fmpcloud.io/api/v3/sp500_constituent?apikey='
-
-// fetches Company name, sector, headquarters, dateFirstAdded, founded
+// fetches all stocks in the S&P500 index
 export const FetchCompanyDetails = async () => {
-	const api = `${BASE_URL}${process.env.REACT_APP_API_KEY}`
+	const api = `${process.env.REACT_APP_BACKEND_STOCK_API}company-details`
+	const headerOptions = {
+		'Content-Type': 'application/json',
+	  }
 
-	return await fetch(api)
+    return await fetch(api, {
+      method: 'POST',
+      headers: headerOptions,
+      })
 		.then((results) => results.json())
-		.then((data) => data)
+		.then((data) => data?.companyDetails)
 		.catch((err) => console.log(err))
 }
