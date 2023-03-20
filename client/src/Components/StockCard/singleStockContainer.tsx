@@ -114,9 +114,9 @@ import { GoTriangleUp, GoTriangleDown } from 'react-icons/go'
           <li className='w-1/3'>
             <img
               className='w-max md:w-12 h-8 md:h-max md:mx-2 rounded-lg '
-              src={companyDetails?.image}
+              src={companyDetails[0]?.image}
               alt={companyDetails}
-            />
+            ></img>
           </li>
           <div className='flex flex-col text-xs md:text-base'>
             <span className='hidden md:inline text-lightBlue'>
@@ -182,7 +182,7 @@ import { GoTriangleUp, GoTriangleDown } from 'react-icons/go'
               <article className='w-1/3 h-full flex flex-row gap-1'>
                 <img
                   className='w-12 md:w-12 h-8 md:h-max rounded-lg'
-                  src={companyDetails?.image}
+                  src={companyDetails[0]?.image}
                   alt={companyDetails}
                 ></img>
                 <li className='text-xs md:text-base md:ml-14 h-full pl-1 md:pl-0 items-center flex'>
