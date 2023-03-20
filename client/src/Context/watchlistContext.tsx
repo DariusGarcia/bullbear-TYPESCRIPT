@@ -1,4 +1,10 @@
-import React, { createContext, useReducer, useMemo, ReactNode } from 'react';
+import React, {
+  createContext,
+  useReducer,
+  useMemo,
+  ReactNode,
+  useCallback,
+} from 'react';
 
 type Stock = {
   ticker: string;
@@ -23,12 +29,16 @@ type Props = {
   children: ReactNode;
 };
 
-export const WatchlistContext = createContext<ContextType | null>(null);
+export const WatchlistContext = createContext<ContextType>({
+  watchlist: [],
+  dispatch: () => {},
+});
 
 export const watchlistReducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'SET_WATCHLIST':
       return {
+        ...state,
         watchlist: action.payload,
       };
     case 'ADD_STOCK':
@@ -37,6 +47,7 @@ export const watchlistReducer = (state: State, action: Action): State => {
       };
     case 'DELETE_STOCK':
       return {
+        ...state,
         watchlist: state.watchlist.filter((w) => w._id !== action.payload._id),
       };
     default:
@@ -49,13 +60,15 @@ export const WatchListContextProvider = ({ children }: Props) => {
     watchlist: [],
   });
 
-  const data = useMemo(
+  const memoizedDispatch = useCallback(dispatch, []);
+
+  const contextValue = useMemo(
     () => ({ watchlist: state.watchlist, dispatch }),
-    [state.watchlist, dispatch]
+    [state.watchlist, memoizedDispatch]
   );
 
   return (
-    <WatchlistContext.Provider value={data}>
+    <WatchlistContext.Provider value={contextValue}>
       {children}
     </WatchlistContext.Provider>
   );
