@@ -3,7 +3,6 @@ import React, { createContext, useReducer, useMemo, ReactNode } from 'react';
 type Stock = {
   ticker: string;
   _id: string;
-
 };
 
 type State = {
@@ -30,7 +29,7 @@ export const watchlistReducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'SET_WATCHLIST':
       return {
-        watchlist: action.payload ,
+        watchlist: action.payload,
       };
     case 'ADD_STOCK':
       return {
@@ -50,10 +49,10 @@ export const WatchListContextProvider = ({ children }: Props) => {
     watchlist: [],
   });
 
-  const data = useMemo(() => ({ watchlist: state.watchlist, dispatch }), [
-    state.watchlist,
-    dispatch,
-  ]);
+  const data = useMemo(
+    () => ({ watchlist: state.watchlist, dispatch }),
+    [state.watchlist, dispatch]
+  );
 
   return (
     <WatchlistContext.Provider value={data}>

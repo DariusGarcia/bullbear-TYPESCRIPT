@@ -1,68 +1,78 @@
-import { Fragment, useState, useEffect } from 'react'
+import { Fragment, useState, useEffect } from 'react';
 // components
-import { Watchlist } from '../Components/Watchlist/watchlist'
-import ActiveMovers from '../Components/ActiveMovers/activeMovers'
-import IndexPerformances from '../Components/BroadMarket/IndexPerformances'
-import StockNews from '../Components/StockCard/stockNews'
-import SectorPerformances from '../Components/BroadMarket/sectorPerformances'
-import { UseFetchMarketPerformances } from '../Hooks/useFetchMarketPerformances'
+import { Watchlist } from '../Components/Watchlist/watchlist';
+import ActiveMovers from '../Components/ActiveMovers/activeMovers';
+import IndexPerformances from '../Components/BroadMarket/IndexPerformances';
+import StockNews from '../Components/StockCard/stockNews';
+import SectorPerformances from '../Components/BroadMarket/sectorPerformances';
+import { UseFetchMarketPerformances } from '../Hooks/useFetchMarketPerformances';
 // hooks
-import { useLogout } from '../Hooks/useLogout'
-import { useAuthContext } from '../Hooks/useAuthContext'
+import { useLogout } from '../Hooks/useLogout';
+import { useAuthContext } from '../Hooks/useAuthContext';
 // icons
-import { Dialog, Transition } from '@headlessui/react'
-import { BiNews } from 'react-icons/bi'
-import { SiMarketo } from 'react-icons/si'
-import { Bars3BottomLeftIcon, CogIcon, HomeIcon, XMarkIcon} from '@heroicons/react/24/outline'
-import { AiOutlineStock } from 'react-icons/ai'
-import { BsTextParagraph } from 'react-icons/bs'
+import { Dialog, Transition } from '@headlessui/react';
+import { BiNews } from 'react-icons/bi';
+import { SiMarketo } from 'react-icons/si';
+import {
+  Bars3BottomLeftIcon,
+  CogIcon,
+  HomeIcon,
+  XMarkIcon,
+} from '@heroicons/react/24/outline';
+import { AiOutlineStock } from 'react-icons/ai';
+import { BsTextParagraph } from 'react-icons/bs';
 
 interface NavigationItem {
   name: string;
   href: string;
   icon: any;
   current: boolean;
-  }
+}
 
 const sidebarNavigation: NavigationItem[] = [
   { name: 'Home', href: '/', icon: HomeIcon, current: false },
-  { name: 'Dashboard', href: '/dashboard', icon: AiOutlineStock, current: false},
-  { name: 'Market', href: '/market', icon: BsTextParagraph, current: true },]
+  {
+    name: 'Dashboard',
+    href: '/dashboard',
+    icon: AiOutlineStock,
+    current: false,
+  },
+  { name: 'Market', href: '/market', icon: BsTextParagraph, current: true },
+];
 
 function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(' ');
 }
 
 export default function Market(): JSX.Element {
-  const { logout } = useLogout()
-  const { user } = useAuthContext()
-  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false)
-  const [topGainers, setTopGainers] = useState<any[]>([])
-  const [topLosers, setTopLosers] = useState<any[]>([])
+  const { logout } = useLogout();
+  const { user } = useAuthContext();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+  const [topGainers, setTopGainers] = useState<any[]>([]);
+  const [topLosers, setTopLosers] = useState<any[]>([]);
 
   useEffect(() => {
     UseFetchMarketPerformances('gainers')
       .then((gainers) => setTopGainers(gainers))
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(err));
     UseFetchMarketPerformances('losers')
       .then((losers) => setTopLosers(losers))
-      .catch((err) => console.log(err))
-  }, [])
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <div
-      data-testid='market-1'
-      className='max-w-screen md:max-w-full w-full flex h-full md:min-h-screen bg-grey'
-    >
+      data-testid="market-1"
+      className="max-w-screen md:max-w-full w-full flex h-full md:min-h-screen bg-grey">
       {/* Narrow sidebar */}
-      <div className=' hidden w-28 overflow-y-auto md:block'>
-        <div className='flex w-full flex-col items-center py-6'>
-          <div className='flex flex-shrink-0 items-center '>
-            <h2 className='h-full w-full capitalize text-sm text-white'>
+      <div className=" hidden w-28 overflow-y-auto md:block">
+        <div className="flex w-full flex-col items-center py-6">
+          <div className="flex flex-shrink-0 items-center ">
+            <h2 className="h-full w-full capitalize text-sm text-white">
               {user ? user.username : 'Welcome!'}
             </h2>
           </div>
-          <div className='mt-6 w-full flex-1 space-y-1 px-2 text-white'>
+          <div className="mt-6 w-full flex-1 space-y-1 px-2 text-white">
             {sidebarNavigation.map((item, key) => (
               <a
                 key={key}
@@ -73,8 +83,7 @@ export default function Market(): JSX.Element {
                     : 'text-grey3 hover:bg-lightBlue transition ease-in-out delay-35 hover:text-white',
                   'group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium'
                 )}
-                aria-current={item.current ? 'page' : undefined}
-              >
+                aria-current={item.current ? 'page' : undefined}>
                 <item.icon
                   className={classNames(
                     item.current
@@ -82,37 +91,32 @@ export default function Market(): JSX.Element {
                       : 'text-grey3 group-hover:text-white',
                     'h-6 w-6'
                   )}
-                  aria-hidden='true'
+                  aria-hidden="true"
                 />
-                <span className='mt-2'>{item.name}</span>
+                <span className="mt-2">{item.name}</span>
               </a>
             ))}
             <li
-              className='cursor-pointer text-grey3 hover:bg-lightBlue transition ease-in-out delay-35 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium'
-              aria-current='page'
-            >
+              className="cursor-pointer text-grey3 hover:bg-lightBlue transition ease-in-out delay-35 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium"
+              aria-current="page">
               {user ? (
                 <button
                   onClick={logout}
-                  className='mt-2 gap-2 flex flex-row md:flex-col items-center'
-                >
+                  className="mt-2 gap-2 flex flex-row md:flex-col items-center">
                   <CogIcon
-                    className='hover:text-white text-grey3 group-hover:text-white
-									h-6 w-6'
-                    aria-hidden='true'
-                  ></CogIcon>
+                    className="hover:text-white text-grey3 group-hover:text-white
+									h-6 w-6"
+                    aria-hidden="true"></CogIcon>
                   {user ? 'Sign out' : 'Log in'}
                 </button>
               ) : (
                 <a
-                  href='/login'
-                  className='gap-2 flex flex-row md:flex-col items-center mt-2'
-                >
+                  href="/login"
+                  className="gap-2 flex flex-row md:flex-col items-center mt-2">
                   <CogIcon
-                    className='hover:text-white text-grey3 group-hover:text-white
-									h-6 w-6'
-                    aria-hidden='true'
-                  ></CogIcon>
+                    className="hover:text-white text-grey3 group-hover:text-white
+									h-6 w-6"
+                    aria-hidden="true"></CogIcon>
                   {user ? 'Log in' : 'Log in'}
                 </a>
               )}
@@ -222,25 +226,23 @@ export default function Market(): JSX.Element {
         </Transition.Root>
 
       {/* Content area */}
-      <div className='w-full flex flex-1 h-full flex-col '>
-        <header className='w-full'>
-          <div className='relative z-10 flex h-16 flex-shrink-0  bg-grey shadow-sm'>
+      <div className="w-full flex flex-1 h-full flex-col ">
+        <header className="w-full">
+          <div className="relative z-10 flex h-16 flex-shrink-0  bg-grey shadow-sm">
             <button
-              type='button'
-              className=' px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden'
-              onClick={() => setMobileMenuOpen(true)}
-            >
-              <span className='sr-only'>Open sidebar</span>
+              type="button"
+              className=" px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
+              onClick={() => setMobileMenuOpen(true)}>
+              <span className="sr-only">Open sidebar</span>
               <Bars3BottomLeftIcon
-                className='h-6 w-6 text-white'
-                aria-hidden='true'
+                className="h-6 w-6 text-white"
+                aria-hidden="true"
               />
             </button>
-            <div className='flex flex-1 justify-between  bg-grey sm:px-6 w-full'>
+            <div className="flex flex-1 justify-between  bg-grey sm:px-6 w-full">
               <a
-                href='/dashboard'
-                className='text-white flex items-center text-2xl justify-end w-full mr-4'
-              >
+                href="/dashboard"
+                className="text-white flex items-center text-2xl justify-end w-full mr-4">
                 BullBear
               </a>
             </div>
@@ -248,35 +250,34 @@ export default function Market(): JSX.Element {
         </header>
 
         {/* Main content */}
-        <div className='flex flex-1 items-stretch overflow-hidden text-white '>
-          <main className='flex-1 min-h-screen justify-center md:px-4 bg-primary border-t-2 border-grey3 '>
+        <div className="flex flex-1 items-stretch overflow-hidden text-white ">
+          <main className="flex-1 min-h-screen justify-center md:px-4 bg-primary border-t-2 border-grey3 ">
             {/* Primary column */}
             <section
-              aria-labelledby='primary-heading'
-              className='flex h-full min-w-0 md:w-full overflow-hidden mt-4 flex-1 flex-col lg:order-last'
-            >
+              aria-labelledby="primary-heading"
+              className="flex h-full min-w-0 md:w-full overflow-hidden mt-4 flex-1 flex-col lg:order-last">
               {/* Your content */}
-              <h1 id='primary-heading' className='sr-only'>
+              <h1 id="primary-heading" className="sr-only">
                 Broad Market Performance
               </h1>
-              <h1 className='text-2xl md:text-3xl mb-4 mt-2 ml-2 md:ml-0 flex flex-row gap-4 items-center'>
+              <h1 className="text-2xl md:text-3xl mb-4 mt-2 ml-2 md:ml-0 flex flex-row gap-4 items-center">
                 Market Performance <SiMarketo size={20} />
               </h1>
               {/* Most active market movers */}
-              <div className='mb-0 '>
-                <article className='my-4 '>
-                  <ActiveMovers topMovers={topGainers} query='gainers' />
+              <div className="mb-0 ">
+                <article className="my-4 ">
+                  <ActiveMovers topMovers={topGainers} query="gainers" />
                 </article>
-                <article className='my-4'>
-                  <ActiveMovers topMovers={topLosers} query='losers' />
+                <article className="my-4">
+                  <ActiveMovers topMovers={topLosers} query="losers" />
                 </article>
               </div>
               {/**
                * Broad Index Performance
                */}
-              <article className='mb-12 '>
-                <div className='flex flex-col items-center md:items-start mb-4 ml-2 md:ml-0 bg-grey3 w-max p-2 rounded-md'>
-                  <h2 className='text-xl md:text-2xl flex flex-row gap-2 items-center'>
+              <article className="mb-12 ">
+                <div className="flex flex-col items-center md:items-start mb-4 ml-2 md:ml-0 bg-grey3 w-max p-2 rounded-md">
+                  <h2 className="text-xl md:text-2xl flex flex-row gap-2 items-center">
                     Indexes
                   </h2>
                 </div>
@@ -285,33 +286,33 @@ export default function Market(): JSX.Element {
               {/**
                * Broad Sector Performance
                */}
-              <article className='mb-6'>
-                <div className='flex flex-col items-center md:items-start mb-4 ml-2 md:ml-0 bg-grey3 w-max p-2 rounded-md'>
-                  <h2 className='text-xl md:text-2xl flex flex-row gap-2 items-center'>
+              <article className="mb-6">
+                <div className="flex flex-col items-center md:items-start mb-4 ml-2 md:ml-0 bg-grey3 w-max p-2 rounded-md">
+                  <h2 className="text-xl md:text-2xl flex flex-row gap-2 items-center">
                     Sectors
                   </h2>
                 </div>
                 <SectorPerformances />
               </article>
-              <article className='mx-2'>
-                <h2 className='text-xl md:text-2xl mt-8 mb-4 flex flex-row gap-2 items-center bg-grey3 w-max p-2 rounded-md'>
+              <article className="mx-2">
+                <h2 className="text-xl md:text-2xl mt-8 mb-4 flex flex-row gap-2 items-center bg-grey3 w-max p-2 rounded-md">
                   Stock News <BiNews />
                 </h2>
                 <StockNews />
               </article>
-              <article className='bg-grey md:hidden block mb-12 rounded-lg'>
+              <article className="bg-grey md:hidden block mb-12 rounded-lg">
                 <Watchlist />
               </article>
             </section>
           </main>
 
           {/* Secondary column (hidden on smaller screens) */}
-          <aside className='hidden md:block w-96 px-4 lg:mx-40 pt-2 overflow-x-hidden rounded-md bg-grey3'>
+          <aside className="hidden md:block w-96 px-4 lg:mx-40 pt-2 overflow-x-hidden rounded-md bg-grey3">
             {/* Your content */}
             <Watchlist />
           </aside>
         </div>
       </div>
     </div>
-  )
+  );
 }

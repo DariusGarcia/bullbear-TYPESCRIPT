@@ -1,18 +1,18 @@
-import { useState } from 'react'
-import {SingleStockContainer} from './StockCard/singleStockContainer'
-import ErrorBoundary from '../Components/ErrorBoundaries/errorBoundary'
-import Alert from '@mui/material/Alert'
-import { IoCloseOutline } from 'react-icons/io5'
-import IconButton from '@mui/material/IconButton'
+import { useState } from 'react';
+import { SingleStockContainer } from './StockCard/singleStockContainer';
+import ErrorBoundary from '../Components/ErrorBoundaries/errorBoundary';
+import Alert from '@mui/material/Alert';
+import { IoCloseOutline } from 'react-icons/io5';
+import IconButton from '@mui/material/IconButton';
 
 interface Props {
   ticker: string[] | null;
 }
 
 export default function SearchStockContainer(props: Props): JSX.Element {
-  const { ticker } = props
-  const [error, setError] = useState<Error | null>(null)
-  const [open, setOpen] = useState<boolean>(true)
+  const { ticker } = props;
+  const [error, setError] = useState<Error | null>(null);
+  const [open, setOpen] = useState<boolean>(true);
 
   return (
     // prettier-ignore
@@ -83,5 +83,5 @@ export default function SearchStockContainer(props: Props): JSX.Element {
         </section>
       </div>
     </div>
-  )
+  );
 }

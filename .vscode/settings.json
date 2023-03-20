@@ -1,21 +1,18 @@
 {
-    "cSpell.words": [
-        "BROADMARKET",
-        "Bullbear",
-        "Marketo",
-        "mssg",
-        "Perc",
-        "rapidapi",
-        "serietype",
-        "watchlists",
-        "wkhigh",
-        "wklow"
-    ],
-    "cSpell.ignoreWords": [
-        "DWCF",
-        "GSPC",
-        "IXIC",
-        "RUATR",
-        "headlessui"
-    ]
+  "cSpell.words": [
+    "BROADMARKET",
+    "Bullbear",
+    "Marketo",
+    "mssg",
+    "Perc",
+    "rapidapi",
+    "serietype",
+    "watchlists",
+    "wkhigh",
+    "wklow"
+  ],
+  "cSpell.ignoreWords": ["DWCF", "GSPC", "IXIC", "RUATR", "headlessui"],
+  "editor.codeActionsOnSave": { "source.fixAll.eslint": true },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true
 }

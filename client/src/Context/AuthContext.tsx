@@ -3,7 +3,7 @@ import { createContext, useReducer, useEffect, ReactNode } from 'react';
 interface User {
   username: string;
   password: string;
-  token?: string
+  token?: string;
 }
 
 interface AuthState {
@@ -20,9 +20,14 @@ interface AuthAction {
   payload?: User;
 }
 
-export const AuthContext = createContext<AuthContextType>({} as AuthContextType);
+export const AuthContext = createContext<AuthContextType>(
+  {} as AuthContextType
+);
 
-export const authReducer = (state: AuthState, action: AuthAction): AuthState => {
+export const authReducer = (
+  state: AuthState,
+  action: AuthAction
+): AuthState => {
   switch (action.type) {
     case 'LOGIN':
       return {
