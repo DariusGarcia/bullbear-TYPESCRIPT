@@ -7,7 +7,7 @@ import market from '../assets/market.png'
 import { BsArrowRightSquare, BsArrowReturnRight } from 'react-icons/bs'
 import Navbar from '../Components/Layout/navbar'
 
-export default function Landing() {
+export default function Landing(): JSX.Element {
   const { user } = useAuthContext()
 
   useEffect(() => {
@@ -83,10 +83,7 @@ export default function Landing() {
                             </div>
                           )}
                         </div>
-                        <div className='flex flex-col items-center mt-8 space-x-3 gap-2'>
-                          {/* <div className='text-base font-medium text-white opacity-50 '>
-                            Built by Darius Garcia
-                          </div> */}
+                        <div className='flex flex-col items-center mt-8 space-x-3 gap-2'>                          
                           <span className='w-full bg-neutral opacity-30 h-1'></span>
                           <section className='flex flex-col h-full'>
                             <p className='text-white text-sm letter mt-6'>
@@ -113,7 +110,6 @@ export default function Landing() {
                   </div>
                   <div className='mt-12 -mb-16 sm:-mb-48 lg:relative lg:m-0'>
                     <div className='mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:max-w-none lg:px-0'>
-                      {/* Illustration taken from Lucid Illustrations: https://lucid.pixsellz.io/ */}
                       <img
                         className='w-full lg:absolute lg:inset-y-0 lg:left-0 lg:h-full lg:w-auto lg:max-w-none'
                         src='https://tailwindui.com/img/component-images/cloud-illustration-teal-cyan.svg'

@@ -1,24 +1,36 @@
 import { HiLockClosed } from 'react-icons/hi'
 import { Link } from 'react-router-dom'
-import { useLogin } from '../Hooks/useLogin'
+import { useSignUp } from '../Hooks/useSignup'
 import Spinner from './Spinners/spinner'
 
-export default function LoginForm(props) {
+interface UserInfo {
+  username: string;
+  password: string;
+}
+
+interface Props {
+  userInfo: UserInfo;
+  setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>;
+}
+
+export default function SignUpForm(props: Props): JSX.Element {
   const { userInfo, setUserInfo } = props
-  const { login, isLoading, error } = useLogin()
+  const { signUp, isLoading, error } = useSignUp()
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-
-    await login(userInfo.username, userInfo.password)
+    await signUp(userInfo.username, userInfo.password)
   }
+
   return (
     <div className='flex min-h-full pb-56 items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-primary'>
       <div className='w-full max-w-md space-y-8 text-white'>
         <div>
-          <h1 className='flex justify-center text-4xl font-semibold'>Login</h1>
+          <h1 className='flex justify-center text-4xl font-semibold'>
+            Sign Up
+          </h1>
           <h2 className='mt-6 text-center text-3xl tracking-tight opacity-70'>
-            Sign in to your account
+            Create an account
           </h2>
         </div>
         <form onSubmit={handleSubmit} className='mt-8 space-y-6'>
@@ -65,7 +77,7 @@ export default function LoginForm(props) {
             </div>
           </div>
           <div className='flex items-center justify-between'>
-            {/* <div className='flex items-center'>
+            <div className='flex items-center'>
               <input
                 id='remember-me'
                 name='remember-me'
@@ -78,7 +90,7 @@ export default function LoginForm(props) {
               >
                 Remember me
               </label>
-            </div> */}
+            </div>
           </div>
           <div>
             {isLoading ? (
@@ -87,21 +99,21 @@ export default function LoginForm(props) {
               <button
                 disabled={isLoading || false}
                 type='submit'
-                className='group relative flex w-full justify-center rounded-md cursor-pointer hover:scale-[.98] duration-150 transition ease-in-out hover:bg-opacity-75 bg-lightBlue py-2 px-4 font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
+                className='group relative flex w-full justify-center rounded-md cursor-pointer hover:scale-[.98]  transition ease-in-out hover:bg-opacity-75 bg-lightBlue py-2 px-4 font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
               >
                 <span className='absolute inset-y-0 left-0 flex items-center pl-3'>
                   <HiLockClosed size={25}></HiLockClosed>
                 </span>
-                Login
+                Sign Up
               </button>
             )}
           </div>
         </form>
         <section className='flex flex-row gap-8 items-center pt-12'>
-          <p className=''>Don't have an account yet?</p>
-          <Link to='/signup'>
+          <p className=''>Already have an account? </p>
+          <Link to='/login'>
             <p className='border-2 border-lightBlue rounded-lg hover:opacity-75 transition ease-in-out delay-55 px-6 py-2'>
-              Sign up
+              Login
             </p>
           </Link>
         </section>

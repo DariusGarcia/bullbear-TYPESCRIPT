@@ -4,12 +4,8 @@ import { useAuthContext } from './useAuthContext'
 const endpoint = 'api/user/signup/'
 const API = process.env.REACT_APP_BACKEND_API + endpoint
 
-interface SignUpError {
-  error: string;
-}
-
 export const useSignUp = () => {
-  const [error, setError] = useState<SignUpError | null>(null)
+  const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState<boolean | null>(null)
   const { dispatch } = useAuthContext()
 
@@ -29,7 +25,7 @@ export const useSignUp = () => {
     
     if (!response.ok) {
       setIsLoading(false)
-      setError(json as SignUpError)
+      setError(json.error)
     }
     if (response.ok) {
       // save the user to local storage using the jwt token.
