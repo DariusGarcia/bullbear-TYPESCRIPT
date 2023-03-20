@@ -7,12 +7,6 @@ import { IoMdListBox } from 'react-icons/io'
 const endpoint = 'api/watchlist'
 const API = `${process.env.REACT_APP_BACKEND_API}${endpoint}`
 
-/*
- * TODO: fix bug: user's watchlist doesn't persist when they logout and log back in.
- * dev network: endpoint is not receiving the auth JWT token so they watchlist cannot be accessed when first landing on dashaboard page
- * check client API fetch req or express endpoints/controller
- *
- */
 export const Watchlist = () => {
   const { user } = useAuthContext()
   const { watchlist, dispatch } = useWatchlistContext()
