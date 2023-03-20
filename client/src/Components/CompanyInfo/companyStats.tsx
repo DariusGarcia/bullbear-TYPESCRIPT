@@ -1,16 +1,41 @@
 import formatTime from '../../utils/formatTime'
 
+interface Props {
+  companyDetails: {
+    mktCap?: number;
+  }[];
+  companyProfile: {
+    symbol: string;
+    sector?: string;
+    subSector?: string;
+    dateFirstAdded?: string;
+  }[];
+  stockData: {
+    open: number;
+    dayHigh: number;
+    dayLow: number;
+    yearHigh: number;
+    yearLow: number;
+    volume: number;
+    avgVolume: number;
+    pe?: number;
+  }[];
+  ticker: string;
+}
+
+
 export default function CompanyStats({
   companyDetails,
   companyProfile,
   stockData,
   ticker,
-}) {
+}: Props): JSX.Element {
+
   /**
    * function to find the index of the stock that is being searched and fetched from API.
    * index used for companyProfile to find the sector, sub-sector, and founded.
    */
-  function findId(ticker) {
+  function findId(ticker: string) {
     const ID = companyProfile.map((el) => el.symbol).indexOf(ticker)
     return ID
   }
@@ -100,7 +125,7 @@ export default function CompanyStats({
                 key='date first added data '
                 className='flex flex-wrap h-full  w-max items-center text-sm md:text-base'
               >
-                {formatTime(companyProfile[findId(ticker)]?.dateFirstAdded) ||
+                {formatTime(companyProfile[findId(ticker)]?.dateFirstAdded!) ||
                   '-'}
               </li>
             </ul>

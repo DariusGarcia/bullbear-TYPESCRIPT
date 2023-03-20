@@ -1,7 +1,16 @@
 import { useState } from 'react'
 
-export default function StockAboutInfo({ companyDetails }) {
-  const [toggle, setToggle] = useState(false)
+interface CompanyDetails {
+  companyName: string;
+  description: string;
+}
+
+interface Props {
+  companyDetails: CompanyDetails[];
+}
+
+export default function StockAboutInfo({ companyDetails }: Props): JSX.Element {
+  const [toggle, setToggle] = useState<boolean>(false)
   return (
     companyDetails && (
       <>

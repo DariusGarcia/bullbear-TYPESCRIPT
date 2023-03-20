@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 // import components
-import { StockMoreInfo } from './stockMoreInfo'
+import  StockMoreInfo  from './stockMoreInfo'
 // import hooks
 import { useWatchlistContext } from '../../Hooks/useWatchlistContext'
 import { useAuthContext } from '../../Hooks/useAuthContext'
@@ -26,24 +26,28 @@ import { GoTriangleUp, GoTriangleDown } from 'react-icons/go'
  * - refactor single stock card into own component instead of the if else conditional statement
  * - refactor the many different useStates into one big useState that holds an object containing all the corresponding API fetch responses
  */
-export default function SingleStockContainer({ name }) {
+
+ interface Props {
+  name: string
+}
+ export const SingleStockContainer: React.FC<Props> = ({ name }) => {
   const { user } = useAuthContext()
   const { watchlist, dispatch } = useWatchlistContext()
-  const [stockData, setStockData] = useState([{}])
-  const [companyDetails, setCompanyDetails] = useState()
-  const [companyProfile, setCompanyProfile] = useState()
-  const [stockPeers, setStockPeers] = useState()
-  const [stockRatings, setStockRatings] = useState()
-  const [stockNews, setStockNews] = useState()
-  const [toggle, setToggle] = useState(false)
-  const [error, setError] = useState(null)
+  const [stockData, setStockData] = useState<any>([{}])
+  const [companyDetails, setCompanyDetails] = useState<any>()
+  const [companyProfile, setCompanyProfile] = useState<any>()
+  const [stockPeers, setStockPeers] = useState<any>()
+  const [stockRatings, setStockRatings] = useState<any>()
+  const [stockNews, setStockNews] = useState<any>()
+  const [toggle, setToggle] = useState<any>(false)
+  const [error, setError] = useState<string | null>(null)
   const [open, setOpen] = useState(true)
 
   useEffect(() => {
     FetchSingleStockNews(name).then((name) => setStockNews(name))
     FetchStockRatings(name).then((name) => setStockRatings(name))
     FetchStockPeers(name).then((name) => setStockPeers(name))
-    FetchCompanyDetails(name).then((name) => setCompanyProfile(name))
+    FetchCompanyDetails().then((stockDetails) => setCompanyProfile(stockDetails))
     FetchCompanyProfile(name).then((name) => setCompanyDetails(name))
     UseGetAPI(name)
       .then((res) => setStockData(res))
@@ -149,7 +153,7 @@ export default function SingleStockContainer({ name }) {
         <li className='text-md h-full md:gap-6 gap-4 items-center justify-around flex'>
           <span>
             <button
-              onClick={(event) => handleAdd(event)}
+              onClick={handleAdd}
               className='h-8 w-16 rounded-lg bg-primary border-2 opacity-50 hover:border-lightBlue hover:opacity-100  delay-25 ease-out transition text-white'
             >
               Add
@@ -213,7 +217,7 @@ export default function SingleStockContainer({ name }) {
             <span className='flex flex-row md:gap-6 gap-4 items-center justify-around'>
               <span>
                 <button
-                  onClick={(event) => handleAdd(event)}
+                  onClick={handleAdd}
                   className='h-8 w-16 rounded-lg  bg-primary border-2 opacity-50 hover:border-lightBlue hover:opacity-100  delay-25 ease-in transition text-white'
                 >
                   Add
@@ -264,9 +268,6 @@ export default function SingleStockContainer({ name }) {
             stockData={stockData}
             companyDetails={companyDetails}
             ticker={name}
-            openPrice={stockData[0]['open']}
-            high={stockData[0]['dayHigh']}
-            volume={stockData[0]['volume']?.toLocaleString()}
           />
         </div>
       </div>
@@ -301,3 +302,4 @@ export default function SingleStockContainer({ name }) {
     </nav>
   )
 }
+

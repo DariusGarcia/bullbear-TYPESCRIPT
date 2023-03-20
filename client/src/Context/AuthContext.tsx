@@ -3,6 +3,7 @@ import { createContext, useReducer, useEffect, ReactNode } from 'react';
 interface User {
   username: string;
   password: string;
+  token: string
 }
 
 interface AuthState {

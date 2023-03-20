@@ -1,15 +1,22 @@
 import formatTime from '../../utils/formatTime'
 
+interface CompanyInfoProps {
+  companyDetails: any[];
+  companyProfile: any[];
+  ticker: string;
+}
+
 export default function CompanyInfo({
   companyDetails,
   companyProfile,
   ticker,
-}) {
+}: CompanyInfoProps): JSX.Element {
+
   /**
    * function to find the index of the stock that is being searched and fetched from API.
    * index used for companyProfile to find the sector, sub-sector, and founded.
    */
-  function findId(ticker) {
+  function findId(ticker: string) {
     const ID = companyProfile.map((el) => el.symbol).indexOf(ticker)
     return ID
   }

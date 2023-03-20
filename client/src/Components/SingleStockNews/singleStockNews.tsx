@@ -1,6 +1,20 @@
 import time_ago from '../../utils/timeSincePublished'
 
-export default function SingleStockNews({ stockNews }) {
+interface NewsArticle {
+  id: string;
+  site: string;
+  title: string;
+  text?: string;
+  publishedDate: string;
+  image: string;
+  url: string;
+}
+
+interface Props {
+  stockNews: NewsArticle[];
+}
+
+export default function SingleStockNews({ stockNews }: Props): JSX.Element {
   return (
     stockNews && (
       <article className='flex w-full flex-col items-start h-[400px] md:h-[550px]  '>

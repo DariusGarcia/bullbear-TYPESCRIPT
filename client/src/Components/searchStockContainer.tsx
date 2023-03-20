@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import SingleStockContainer from './StockCard/singleStockContainer'
+import {SingleStockContainer} from './StockCard/singleStockContainer'
 import ErrorBoundary from '../Components/ErrorBoundaries/errorBoundary'
 import Alert from '@mui/material/Alert'
 import { IoCloseOutline } from 'react-icons/io5'
@@ -60,7 +60,7 @@ export default function SearchStockContainer(props: Props): JSX.Element {
               {!ticker || ticker.length === 0 ? 
               (<div className='flex flex-col bg-secondary h-max mt-4 p-6 bg-opacity-20 rounded-lg text-white'> Search for a stock</div>) 
               : 
-              // TODO: Can't exit out of fallback component when clicking on icon
+              // TODO: Can't exit out of fallback component when clicking on close icon
               (<div className='flex h-max mt-4 bg-opacity-20 rounded-lg flex-col-reverse'>
                   {ticker.map((searchedTicker) => (
                     <div id='searched-ticker' key={searchedTicker} className='overflow-auto flex md:w-full  mb-4 text-sm md:text-base shadow-lg bg-grey md:mx-0 rounded-lg'>

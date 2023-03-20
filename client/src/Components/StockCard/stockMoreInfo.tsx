@@ -6,7 +6,17 @@ import SingleStockNews from '../SingleStockNews/singleStockNews'
 import StockAboutInfo from '../StockAboutInfo/stockAboutInfo'
 import StockChart from './stockChart'
 
-export const StockMoreInfo = (props) => {
+interface Props {
+  stockNews: any[];
+  stockData: any[];
+  companyDetails: any[];
+  companyProfile: any;
+  ticker: string;
+  stockPeers: any[];
+  stockRatings: any[];
+}
+
+export default function StockMoreInfo(props: Props): JSX.Element {
   const {
     stockNews,
     stockData,
@@ -32,7 +42,6 @@ export const StockMoreInfo = (props) => {
               ticker={ticker}
               companyDetails={companyDetails}
               companyProfile={companyProfile}
-              stockData={stockData}
             />
 
             {/* Displays stock stats */}

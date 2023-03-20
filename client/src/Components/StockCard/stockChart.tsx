@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js'
+
 import { Line } from 'react-chartjs-2'
 import { UseFetchChartPriceData } from '../../Hooks/UseFetchChartPriceData'
 import formatTime from '../../utils/formatTime'
@@ -23,16 +24,21 @@ ChartJS.register(
   Legend
 )
 
-const StockLineChart = ({ stock }) => {
-  const [prices, setPrices] = useState({})
+type StockLineChartProps = {
+  stock: string
+}
+
+const StockLineChart = ({ stock }: StockLineChartProps) => {
+  const [prices, setPrices] = useState<any>()
   const options = {
     responsive: true,
     plugins: {
       title: {
         display: true,
-        text: `Daily Chart ${
-          isMobile ? '' : formatTime(prices[0]?.date.slice(0, 11))
-        }`,
+        text: 'Daily Chart'
+        // text: `Daily Chart ${
+        //   isMobile ? '' : formatTime(prices[0]?.date?.slice(0, 11))
+        // }`,
       },
     },
   }
@@ -44,24 +50,20 @@ const StockLineChart = ({ stock }) => {
   }, [stock])
 
   // reverse the time series array to display the current day last
-  if (prices.length > 0) {
-    var timeSlotData = prices?.map(
-      (val, index, array) => array[array.length - 1 - index]
-    )
-  }
+  let timeSlotData = prices?.slice().reverse()
 
   const chartData = {
-    labels: timeSlotData?.map((data) => {
+    labels: timeSlotData?.map((data: any) => {
       // change format of chart time label
       let newDate = new Date(data.date)
-      let options = { hour: '2-digit', minute: '2-digit', hour12: true }
+      let options: Intl.DateTimeFormatOptions = { hour: '2-digit', minute: '2-digit', hour12: true }
       return newDate.toLocaleTimeString('en-US', options)
     }),
 
     datasets: [
       {
         label: 'Stock Price',
-        data: timeSlotData?.map((data) => data?.close?.toFixed(2).toString()),
+        data: timeSlotData?.map((data: any) => data?.close?.toFixed(2).toString()),
         backgroundColor: ['rgba(255, 99, 132, 0.2)'],
         borderColor: ['rgba(255, 99, 132, 1)'],
         borderWidth: 1,
