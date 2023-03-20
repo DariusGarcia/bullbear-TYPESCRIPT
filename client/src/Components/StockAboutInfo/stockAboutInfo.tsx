@@ -21,7 +21,7 @@ export default function StockAboutInfo({ companyDetails }: Props): JSX.Element {
         </span>
         {!toggle ? (
           <p className=''>
-            {companyDetails[0]['description'].substring(0, 350).concat('...')}
+            {companyDetails[0]['description']?.substring(0, 350).concat('...')}
           </p>
         ) : (
           <p className=''>{companyDetails[0]['description']}</p>

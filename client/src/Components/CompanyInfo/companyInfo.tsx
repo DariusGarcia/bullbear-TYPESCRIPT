@@ -33,7 +33,7 @@ export default function CompanyInfo({
           <article className=''>
             <p className='opacity-70'>Employees</p>
             <p className=''>
-              {companyDetails[0]?.fullTimeEmployees.toLocaleString()}
+              {companyDetails[0]?.fullTimeEmployees?.toLocaleString()}
             </p>
           </article>
           <article className=''>
