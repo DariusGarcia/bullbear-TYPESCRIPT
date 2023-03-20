@@ -4,6 +4,8 @@
 
 #### [link to BullBear app](https://bullbearmarket.net/)
 
+#### [link to original repo developed with JavaScript](https://github.com/dariusgarcia/bullbear)
+
 #### [link to BullBear server GitHub repo](https://github.com/DariusGarcia/bullbear-server)
 
 ## Description
