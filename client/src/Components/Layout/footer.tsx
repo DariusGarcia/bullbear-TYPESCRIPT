@@ -80,7 +80,7 @@ const navigation = {
   social: [
     {
       name: 'Github',
-      href: 'https://github.com/dariusgarcia/bullbear',
+      href: 'https://github.com/DariusGarcia/bullbear-TYPESCRIPT',
       icon: <BsGithub size={25}></BsGithub>,
     },
   ],
