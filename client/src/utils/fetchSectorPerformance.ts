@@ -4,11 +4,16 @@
  */
 
 export const FetchSectorPerformance = async () => {
-	const BASE_URL = 'https://fmpcloud.io/api/v3/sectors-performance?apikey='
-	const api = `${BASE_URL}${process.env.REACT_APP_API_KEY}`
-
-	return await fetch(api)
+	const api = `${process.env.REACT_APP_BACKEND_STOCK_API}sector-performance`
+	const headerOptions = {
+		'Content-Type': 'application/json',
+	  }
+  
+	return await fetch(api, {
+		method: 'POST',
+		headers: headerOptions,
+	  })
 		.then((results) => results.json())
-		.then((data) => data)
+		.then((data) => data?.sectorPerformanceData)
 		.catch((err) => console.log(err))
 }
