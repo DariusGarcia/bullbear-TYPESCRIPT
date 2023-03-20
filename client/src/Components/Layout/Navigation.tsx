@@ -1,13 +1,12 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
-import { useLogout } from '../Hooks/useLogout'
-import { useAuthContext } from '../Hooks/useAuthContext'
+import { useLogout } from '../../Hooks/useLogout'
+import { useAuthContext } from '../../Hooks/useAuthContext'
 
-export default function Navigation() {
+export default function Navigation(): JSX.Element {
 	const { logout } = useLogout()
 	const { user } = useAuthContext()
 
-	const handleClick = () => {
+	const handleClick = (): void => {
 		logout()
 	}
 
@@ -26,7 +25,6 @@ export default function Navigation() {
 						<Link to='/dashboard'>
 							<li className=''>Market</li>
 						</Link>
-						{/* <li className=''>Portfolio</li> */}
 						{!user && (
 							<div className='flex flex-row gap-4'>
 								<Link to='/login'>
@@ -39,7 +37,7 @@ export default function Navigation() {
 						)}
 						{user && (
 							<div className='flex flex-row gap-4'>
-								<span className=''>{user.email?.split('@')[0]}</span>
+								<span className=''>{user.username}</span>
 								<button onClick={handleClick} className=''>
 									Logout
 								</button>

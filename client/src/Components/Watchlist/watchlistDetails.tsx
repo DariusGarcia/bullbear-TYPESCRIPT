@@ -7,9 +7,17 @@ import { useAuthContext } from '../../Hooks/useAuthContext'
 
 const endpoint = 'api/watchlist/'
 
-export const WatchlistDetails = ({ ticker, watchlistInfo }) => {
-  const [stockData, setStockData] = useState({})
-  const [companyLogo, setCompanyLogo] = useState()
+interface Props {
+  ticker: string;
+  watchlistInfo: string;
+}
+
+export const WatchlistDetails: React.FC<Props> = ({
+  ticker,
+  watchlistInfo,
+}) => {
+  const [stockData, setStockData] = useState<any | null>([{}])
+  const [companyLogo, setCompanyLogo] = useState<string>()
   const { dispatch } = useWatchlistContext()
   const { user } = useAuthContext()
 
@@ -58,7 +66,7 @@ export const WatchlistDetails = ({ ticker, watchlistInfo }) => {
   return (
     <>
       {/* display when change is positive*/}
-      {stockData[0] && stockData[0]['changesPercentage'] > 0 && (
+      {stockData[0]['changesPercentage'] > 0 && (
         <div className='h-full grid grid-cols-3 justify-between w-full items-center p-2 py-4 text-white'>
           {/* display stock ticker */}
           <div className='justify-start flex gap-2 items-center w-max rounded-lg '>
@@ -93,7 +101,7 @@ export const WatchlistDetails = ({ ticker, watchlistInfo }) => {
       )}
 
       {/* display when change is negative*/}
-      {stockData[0] && stockData[0]['changesPercentage'] < 0 && (
+      {stockData[0]['changesPercentage'] < 0 && (
         <div className=''>
           <div className='h-full grid grid-cols-3 w-full justify-between items-center p-2 py-4 text-white '>
             {/* display logo and ticker */}

@@ -1,7 +1,18 @@
 import { useState, useEffect } from 'react'
 import time_ago from '../../utils/timeSincePublished'
-export default function StockNews() {
-  const [news, setNews] = useState([])
+
+interface NewsArticle {
+  site: string;
+  symbol: string;
+  title: string;
+  text?: string;
+  publishedDate: string;
+  url: string;
+  image: string;
+}
+
+export default function StockNews(): JSX.Element {
+  const [news, setNews] = useState<NewsArticle[]>([])
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -16,15 +27,16 @@ export default function StockNews() {
     }
     fetchNews()
   }, [])
+
   return (
     <>
-      {news && (
+      {news.length > 0 && (
         <section
           key='stock-news-section'
           className='h-[550px] overflow-y-auto mb-12'
         >
-          {news.map((newsArticle, key) => (
-            <div key={key}>
+          {news.map((newsArticle) => (
+            <div key={newsArticle.symbol}>
               <a
                 target='_blank'
                 href={newsArticle.url}

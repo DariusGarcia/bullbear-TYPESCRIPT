@@ -68,8 +68,7 @@ export const Watchlist = () => {
               {
                 <WatchlistDetails
                   watchlistInfo={stock._id}
-                  companyProfile={stock.ticker}
-                  ticker={stock.ticker}
+                  ticker={stock?.ticker}
                 ></WatchlistDetails>
               }
             </li>
