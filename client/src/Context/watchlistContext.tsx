@@ -1,8 +1,9 @@
 import React, { createContext, useReducer, useMemo, ReactNode } from 'react';
 
 type Stock = {
+  ticker: string;
   _id: string;
-  symbol: string;
+
 };
 
 type State = {
