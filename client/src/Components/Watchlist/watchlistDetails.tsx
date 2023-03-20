@@ -53,45 +53,35 @@ export const WatchlistDetails: React.FC<Props> = ({
     }
   };
 
-  // const MemoizedData = () =>
-  //   useMemo(() => {
-  //     FetchCompanyProfile(ticker).then((image) =>
-  //       setCompanyLogo(image[0]['image'])
-  //     )
-  //     UseGetAPI(ticker)
-  //       .then((res) => setStockData(res))
-  //       .catch((error) => console.log(error))
-  //   }, [])
-
   return (
     <>
       {/* display when change is positive*/}
       {stockData[0]['changesPercentage'] > 0 && (
-        <div className="h-full grid grid-cols-3 justify-between w-full items-center p-2 py-4 text-white">
+        <div className='h-full grid grid-cols-3 justify-between w-full items-center p-2 py-4 text-white'>
           {/* display stock ticker */}
-          <div className="justify-start flex gap-2 items-center w-max rounded-lg ">
-            <span className="">
+          <div className='justify-start flex gap-2 items-center w-max rounded-lg '>
+            <span className=''>
               <img
-                className="w-8 md:w-max h-8 rounded-lg"
+                className='w-8 md:w-max h-8 rounded-lg'
                 src={companyLogo}
                 alt={companyLogo}></img>
             </span>
-            <div className="ml-1 text-sm">${ticker}</div>
+            <div className='ml-1 text-sm'>${ticker}</div>
           </div>
           {/* display current price */}
-          <span className="flex flex-row gap-2">
-            <p className="flex h-full justify-center items-center w-full text-white">
+          <span className='flex flex-row gap-2'>
+            <p className='flex h-full justify-center items-center w-full text-white'>
               ${stockData[0]['price']?.toFixed(2)}
             </p>
-            <p className="flex h-full justify-center items-center w-full text-green">
+            <p className='flex h-full justify-center items-center w-full text-green'>
               ({stockData[0]['changesPercentage']?.toFixed(2)}%)
             </p>
           </span>
           <button
             onClick={DeleteStock}
-            className="flex justify-center text-white opacity-50 hover:opacity-100">
+            className='flex justify-center text-white opacity-50 hover:opacity-100'>
             <AiFillDelete
-              className="hover:text-red hover:scale-110 transition ease-in-out delay-25"
+              className='hover:text-red hover:scale-110 transition ease-in-out delay-25'
               size={20}
             />
           </button>
@@ -100,30 +90,30 @@ export const WatchlistDetails: React.FC<Props> = ({
 
       {/* display when change is negative*/}
       {stockData[0]['changesPercentage'] < 0 && (
-        <div className="">
-          <div className="h-full grid grid-cols-3 w-full justify-between items-center p-2 py-4 text-white ">
+        <div className=''>
+          <div className='h-full grid grid-cols-3 w-full justify-between items-center p-2 py-4 text-white '>
             {/* display logo and ticker */}
-            <div className="flex justify-start items-center rounded-lg">
+            <div className='flex justify-start items-center rounded-lg'>
               <img
-                className="w-8 md:w-max h-8 rounded-lg"
+                className='w-8 md:w-max h-8 rounded-lg'
                 src={companyLogo}
                 alt={companyLogo}></img>
-              <div className="ml-1 text-sm">${ticker}</div>
+              <div className='ml-1 text-sm'>${ticker}</div>
             </div>
             {/* display current price */}
-            <span className="flex flex-row gap-2">
-              <p className="flex h-full justify-center items-center w-full text-white">
+            <span className='flex flex-row gap-2'>
+              <p className='flex h-full justify-center items-center w-full text-white'>
                 ${stockData[0]['price']?.toFixed(2)}
               </p>
-              <p className="flex h-full justify-center items-center w-full text-red">
+              <p className='flex h-full justify-center items-center w-full text-red'>
                 ({stockData[0]['changesPercentage']?.toFixed(2)}%)
               </p>
             </span>
             <button
               onClick={DeleteStock}
-              className="flex justify-center text-white opacity-50 hover:opacity-100">
+              className='flex justify-center text-white opacity-50 hover:opacity-100'>
               <AiFillDelete
-                className="hover:text-red flex justify-center hover:scale-110 transition ease-in-out delay-25"
+                className='hover:text-red flex justify-center hover:scale-110 transition ease-in-out delay-25'
                 size={20}
               />
             </button>
