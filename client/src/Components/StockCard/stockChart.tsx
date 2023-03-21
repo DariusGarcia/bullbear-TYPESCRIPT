@@ -12,8 +12,8 @@ import {
 
 import { Line } from 'react-chartjs-2';
 import { UseFetchChartPriceData } from '../../Hooks/UseFetchChartPriceData';
-import formatTime from '../../utils/formatTime';
-import { isMobile } from 'react-device-detect';
+import checkPrice from '../../utils/checkPrice';
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -26,22 +26,15 @@ ChartJS.register(
 
 type StockLineChartProps = {
   stock: string;
+  stockData: any[];
 };
 
-const StockLineChart = ({ stock }: StockLineChartProps) => {
+export default function StockLineChart({
+  stock,
+  stockData,
+}: StockLineChartProps) {
   const [prices, setPrices] = useState<any>();
-  const options = {
-    responsive: true,
-    plugins: {
-      title: {
-        display: true,
-        text: 'Daily Chart',
-        // text: `Daily Chart ${
-        //   isMobile ? '' : formatTime(prices[0]?.date?.slice(0, 11))
-        // }`,
-      },
-    },
-  };
+
   useEffect(() => {
     const handleGetTimeData = async () => {
       setPrices(await UseFetchChartPriceData(stock));
@@ -70,20 +63,28 @@ const StockLineChart = ({ stock }: StockLineChartProps) => {
         data: timeSlotData?.map((data: any) =>
           data?.close?.toFixed(2).toString()
         ),
-        backgroundColor: ['rgba(255, 99, 132, 0.2)'],
-        borderColor: ['rgba(255, 99, 132, 1)'],
+        backgroundColor: checkPrice(stockData),
+        borderColor: checkPrice(stockData),
         borderWidth: 1,
       },
     ],
   };
 
   return (
-    <article className="w-full h-full mb-4" id="stock-chart">
-      <section id="stock-price-chart">
+    <article className='w-full h-full mb-4' id='stock-chart'>
+      <section id='stock-price-chart'>
         <Line options={options} data={chartData} />
       </section>
     </article>
   );
-};
+}
 
-export default StockLineChart;
+const options = {
+  responsive: true,
+  plugins: {
+    title: {
+      display: true,
+      text: 'Daily Chart',
+    },
+  },
+};
