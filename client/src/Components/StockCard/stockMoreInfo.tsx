@@ -33,9 +33,9 @@ export default function StockMoreInfo(props: Props): JSX.Element {
         companyDetails.length > 0 &&
         stockPeers &&
         stockRatings && (
-          <div className="px-4 text-white w-full h-full overflow-hidden">
+          <div className='px-4 text-white w-full h-full overflow-hidden'>
             {/* Displays stock Daily Chart */}
-            <StockChart stock={ticker} />
+            <StockChart stock={ticker} stockData={stockData} />
 
             {/* Displays company info */}
             <CompanyInfo
@@ -55,7 +55,7 @@ export default function StockMoreInfo(props: Props): JSX.Element {
             {/* Displays similar stocks */}
             <SimilarStocks stockPeers={stockPeers} />
 
-            <section className="md:flex md:flex-row my-4 justify-between gap-8">
+            <section className='md:flex md:flex-row my-4 justify-between gap-8'>
               {/* Displays stock ratings */}
               <AnalystRating stockRatings={stockRatings} />
 
@@ -64,7 +64,7 @@ export default function StockMoreInfo(props: Props): JSX.Element {
             </section>
 
             {/* Displays stock about info*/}
-            <section className="mt-8">
+            <section className='mt-8'>
               <StockAboutInfo companyDetails={companyDetails} />
             </section>
           </div>
