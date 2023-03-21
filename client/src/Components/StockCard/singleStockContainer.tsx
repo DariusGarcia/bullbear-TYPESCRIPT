@@ -174,9 +174,7 @@ export const SingleStockContainer: React.FC<Props> = ({ name }) => {
      * stock more info toggled
      */
     info = (
-      <div
-        onClick={handleOnClick}
-        className='flex flex-col w-full pt-2 md:pt-0 transition delay-25 ease-in-out rounded-lg hover:cursor-pointer'>
+      <div className='flex flex-col w-full pt-2 md:pt-0 transition delay-25 ease-in-out rounded-lg '>
         <div className=' w-full py-2 h-full'>
           <ul className='h-full grid grid-cols-4 md:mr-0 content-center text-white px-2'>
             {/* display stock ticker */}
@@ -186,7 +184,7 @@ export const SingleStockContainer: React.FC<Props> = ({ name }) => {
                   className='w-12 md:w-12 h-8 md:h-max rounded-lg'
                   src={companyDetails[0]?.image}
                   alt={companyDetails}></img>
-                <li className='text-xs md:text-base md:ml-14 h-full pl-1 md:pl-0 items-center flex'>
+                <li className='text-xs md:text-base ml-8 lg:ml-14 h-full pl-1 md:pl-0 items-center flex'>
                   ${name || null}
                 </li>
               </article>
