@@ -1,6 +1,7 @@
 # BullBear Express Server
 
 ### This is the old server directory. I have migrated the Express server to its own repository due to hosting issues.
+#### [New Bullbear Express server repo](https://github.com/dariusgarcia/bullbear-server)
 
 ### Technologies used:
 
@@ -13,4 +14,4 @@
 - [x] User Authentication
 - [x] 3rd party FMP Cloud Stock API
 
-#### [New Bullbear Express server repo](https://github.com/dariusgarcia/bullbear-server)
+
