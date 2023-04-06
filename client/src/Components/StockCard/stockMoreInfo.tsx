@@ -55,7 +55,7 @@ export default function StockMoreInfo(props: Props): JSX.Element {
             {/* Displays similar stocks */}
             <SimilarStocks stockPeers={stockPeers} />
 
-            <section className='md:flex md:flex-row my-4 justify-between gap-8'>
+            <section className='md:flex md:flex-row my-4 justify-between gap-8 '>
               {/* Displays stock ratings */}
               <AnalystRating stockRatings={stockRatings} />
 
