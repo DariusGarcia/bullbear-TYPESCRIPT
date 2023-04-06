@@ -2,27 +2,26 @@ import formatTime from '../../utils/formatTime'
 
 interface Props {
   companyDetails: {
-    mktCap?: number;
-  }[];
+    mktCap?: number
+  }[]
   companyProfile: {
-    symbol: string;
-    sector?: string;
-    subSector?: string;
-    dateFirstAdded?: string;
-  }[];
+    symbol: string
+    sector?: string
+    subSector?: string
+    dateFirstAdded?: string
+  }[]
   stockData: {
-    open: number;
-    dayHigh: number;
-    dayLow: number;
-    yearHigh: number;
-    yearLow: number;
-    volume: number;
-    avgVolume: number;
-    pe?: number;
-  }[];
-  ticker: string;
+    open: number
+    dayHigh: number
+    dayLow: number
+    yearHigh: number
+    yearLow: number
+    volume: number
+    avgVolume: number
+    pe?: number
+  }[]
+  ticker: string
 }
-
 
 export default function CompanyStats({
   companyDetails,
@@ -30,7 +29,6 @@ export default function CompanyStats({
   stockData,
   ticker,
 }: Props): JSX.Element {
-
   /**
    * function to find the index of the stock that is being searched and fetched from API.
    * index used for companyProfile to find the sector, sub-sector, and founded.
@@ -117,7 +115,7 @@ export default function CompanyStats({
               </li>
               <li
                 key='mkt cap data '
-                className='flex h-full items-center text-base'
+                className='flex h-full items-center text-sm'
               >
                 ${companyDetails[0]['mktCap']?.toLocaleString()}
               </li>
