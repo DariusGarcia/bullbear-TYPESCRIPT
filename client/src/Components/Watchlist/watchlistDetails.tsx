@@ -4,22 +4,33 @@ import { AiFillDelete } from 'react-icons/ai';
 import { FetchCompanyProfile } from '../../utils/fetchCompanyProfile';
 import { useWatchlistContext } from '../../Hooks/useWatchlistContext';
 import { useAuthContext } from '../../Hooks/useAuthContext';
-
-const endpoint = 'api/watchlist/';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  deleteStock,
+  selectWatchlist,
+  WatchlistState,
+} from '../../features/watchlist/watchlistSlice';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 
 interface Props {
   ticker: string;
   watchlistInfo: string;
+  _id: string;
 }
 
 export const WatchlistDetails: React.FC<Props> = ({
+  _id,
   ticker,
   watchlistInfo,
 }) => {
   const [stockData, setStockData] = useState<any | null>([{}]);
   const [companyLogo, setCompanyLogo] = useState<string>();
-  const { dispatch } = useWatchlistContext();
+  // const { dispatch } = useWatchlistContext();
   const { user } = useAuthContext();
+  const stock = ticker;
+  const watchlist = useSelector((state: WatchlistState) => state.watchlist);
+  // const watchlist = useAppSelector(selectWatchlist);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     FetchCompanyProfile(ticker).then((image) =>
@@ -30,34 +41,26 @@ export const WatchlistDetails: React.FC<Props> = ({
       .catch((error) => console.log(error));
   }, [ticker]);
 
+  /**
+   * Deletes stock from the watchlist
+   * TODO: fix bug where it deletes the last stock in the watchlist
+   * array instead of the selected stock
+   */
+
   const DeleteStock = async () => {
     if (!user) {
       return;
     }
-
-    const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_API}${endpoint}${watchlistInfo}`,
-      {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-        method: 'DELETE',
-      }
-    );
-
-    const json = await response.json();
-
-    if (response.ok) {
-      dispatch({ type: 'DELETE_STOCK', payload: json });
-      alert(`$${ticker} removed from watchlist`);
-    }
+    dispatch(deleteStock({ _id }));
   };
 
   return (
     <>
       {/* display when change is positive*/}
       {stockData[0]['changesPercentage'] > 0 && (
-        <div className='h-full grid grid-cols-3 justify-between w-full items-center p-2 py-4 text-white'>
+        <div
+          key={stockData._id}
+          className='h-full grid grid-cols-3 justify-between w-full items-center p-2 py-4 text-white'>
           {/* display stock ticker */}
           <div className='justify-start flex gap-2 items-center w-max rounded-lg '>
             <span className=''>
@@ -90,7 +93,7 @@ export const WatchlistDetails: React.FC<Props> = ({
 
       {/* display when change is negative*/}
       {stockData[0]['changesPercentage'] < 0 && (
-        <div className=''>
+        <div key={stockData._id} className=''>
           <div className='h-full grid grid-cols-3 w-full justify-between items-center p-2 py-4 text-white '>
             {/* display logo and ticker */}
             <div className='flex justify-start items-center rounded-lg'>

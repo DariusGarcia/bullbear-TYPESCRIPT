@@ -10,6 +10,7 @@ import Market from './Pages/Market';
 import Login from './Pages/Login';
 import Signup from './Pages/Signup';
 import Footer from './Components/Layout/footer';
+import { Counter } from './features/counter/Counter';
 
 export default function App(): JSX.Element {
   const { user } = useAuthContext();
@@ -18,27 +19,28 @@ export default function App(): JSX.Element {
     <>
       <div>
         <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/market" element={<Market />} />
+          <Route path='/' element={<Landing />} />
+          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/market' element={<Market />} />
+          <Route path='/redux' element={<Counter />} />
 
           <Route
-            path="/login"
-            element={!user ? <Login /> : <Navigate to="/dashboard" />}
+            path='/login'
+            element={!user ? <Login /> : <Navigate to='/dashboard' />}
           />
           <Route
-            path="/dashboard"
+            path='/dashboard'
             element={
               !user ? (
-                <Navigate to="/dashboard" />
+                <Navigate to='/dashboard' />
               ) : (
-                <Navigate to="/dashboard" />
+                <Navigate to='/dashboard' />
               )
             }
           />
           <Route
-            path="/signup"
-            element={!user ? <Signup /> : <Navigate to="/dashboard" />}
+            path='/signup'
+            element={!user ? <Signup /> : <Navigate to='/dashboard' />}
           />
         </Routes>
       </div>

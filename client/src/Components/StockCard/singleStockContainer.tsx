@@ -184,7 +184,7 @@ export const SingleStockContainer: React.FC<Props> = ({ name }) => {
                   className='w-12 md:w-12 h-8 md:h-max rounded-lg'
                   src={companyDetails[0]?.image}
                   alt={companyDetails}></img>
-                <li className='text-xs md:text-base ml-8 lg:ml-14 h-full pl-1 md:pl-0 items-center flex'>
+                <li className='text-xs md:text-base md:ml-14 h-full pl-1 md:pl-0 items-center flex'>
                   ${name || null}
                 </li>
               </article>

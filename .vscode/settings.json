@@ -15,5 +15,25 @@
   "cSpell.ignoreWords": ["DWCF", "GSPC", "IXIC", "RUATR", "headlessui"],
   "editor.codeActionsOnSave": { "source.fixAll.eslint": true },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#57d6d6",
+    "activityBar.background": "#57d6d6",
+    "activityBar.foreground": "#15202b",
+    "activityBar.inactiveForeground": "#15202b99",
+    "activityBarBadge.background": "#d34cd3",
+    "activityBarBadge.foreground": "#15202b",
+    "commandCenter.border": "#15202b99",
+    "sash.hoverBorder": "#57d6d6",
+    "statusBar.background": "#31c9c9",
+    "statusBar.foreground": "#15202b",
+    "statusBarItem.hoverBackground": "#27a0a0",
+    "statusBarItem.remoteBackground": "#31c9c9",
+    "statusBarItem.remoteForeground": "#15202b",
+    "titleBar.activeBackground": "#31c9c9",
+    "titleBar.activeForeground": "#15202b",
+    "titleBar.inactiveBackground": "#31c9c999",
+    "titleBar.inactiveForeground": "#15202b99"
+  },
+  "peacock.color": "#31c9c9"
 }

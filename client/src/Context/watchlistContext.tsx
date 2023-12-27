@@ -12,7 +12,7 @@ type Stock = {
 };
 
 type State = {
-  watchlist: Stock[] | [];
+  watchlist: Stock[];
 };
 
 type Action =
@@ -38,7 +38,6 @@ export const watchlistReducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'SET_WATCHLIST':
       return {
-        ...state,
         watchlist: action.payload,
       };
     case 'ADD_STOCK':
@@ -58,7 +57,7 @@ export const watchlistReducer = (state: State, action: Action): State => {
 export const WatchListContextProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(watchlistReducer, {
     watchlist: [],
-  });
+  } as State);
 
   const memoizedDispatch = useCallback(dispatch, []);
 
