@@ -71,7 +71,7 @@ export default function StockLineChart({
   };
 
   return (
-    <article className='w-full h-full mb-4' id='stock-chart'>
+    <article className='relative h-full mb-4' id='stock-chart'>
       <section id='stock-price-chart'>
         <Line options={options} data={chartData} />
       </section>

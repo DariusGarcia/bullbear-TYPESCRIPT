@@ -19,6 +19,8 @@ import Collapse from '@mui/material/Collapse';
 import { IoCloseOutline } from 'react-icons/io5';
 import { AiOutlineArrowsAlt } from 'react-icons/ai';
 import { GoTriangleUp, GoTriangleDown } from 'react-icons/go';
+import { SingleStockCard } from './singleStockCard';
+import { UseFetchChartPriceData } from '../../Hooks/UseFetchChartPriceData';
 
 /**
  * TODO:
@@ -39,6 +41,7 @@ export const SingleStockContainer: React.FC<Props> = ({ name }) => {
   const [stockPeers, setStockPeers] = useState<any>();
   const [stockRatings, setStockRatings] = useState<any>();
   const [stockNews, setStockNews] = useState<any>();
+  const [prices, setPrices] = useState<any>();
   const [toggle, setToggle] = useState<any>(false);
   const [error, setError] = useState<string | null>(null);
   const [open, setOpen] = useState(true);
@@ -93,6 +96,31 @@ export const SingleStockContainer: React.FC<Props> = ({ name }) => {
     }
   };
 
+  // fetching data for chart
+  useEffect(() => {
+    const handleGetTimeData = async () => {
+      setPrices(await UseFetchChartPriceData(name));
+    };
+    handleGetTimeData();
+  }, [name]);
+
+  // Function to transform data
+  const transformData = (data) => {
+    return data
+      ?.filter((_: any, index) => index % 2 === 0) // grab every other object
+      ?.slice(0, 7) // take only 7 objects
+      ?.map((item) => ({
+        month: new Date(item.date).toLocaleDateString('en-US', {
+          month: 'short',
+          day: '2-digit',
+        }), // convert date to 'MMM dd' format // convert date to a more readable format
+        Performance: item.close.toFixed(0), // use closing price as performance
+      }));
+  };
+
+  // Transformed data
+  const chartdata = transformData(prices);
+
   let info;
 
   if (!watchlist && !companyDetails) {
@@ -108,73 +136,80 @@ export const SingleStockContainer: React.FC<Props> = ({ name }) => {
   /**
    * stock more info NOT toggled
    */
-  if (!toggle && companyDetails) {
+  if (!toggle && companyDetails && chartdata) {
     info = (
-      <ul
-        onClick={handleOnClick}
-        className='h-16 grid w-full px-2 py-4 grid-cols-4 mr-2 md:mr-0 content-center text-white border-2transition delay-25 ease-in-out rounded-lg cursor-pointer'>
-        {/* display stock ticker */}
-        <div className='flex h-full items-center gap-x-2 md:gap-1 text-xs md:text-sm '>
-          <li className='w-1/3'>
-            <img
-              className='w-max md:w-12 h-8 md:h-max md:mx-2 rounded-lg '
-              src={companyDetails[0]?.image}
-              alt={companyDetails}></img>
-          </li>
-          <div className='flex flex-col text-xs md:text-base'>
-            <span className='hidden md:inline text-lightBlue'>
-              {stockData[0]['name']?.split(' ')[0]?.split(',')?.join('')}
-            </span>
-            <li className='text-xs md:text-base h-full items-center flex '>
-              {name}
+      <>
+        <SingleStockCard
+          ticker={name}
+          stockPrices={chartdata}
+          companyName={companyDetails}
+        />
+        <ul
+          onClick={handleOnClick}
+          className='relative h-16 grid px-2 py-4 grid-cols-4 mr-2 md:mr-0 content-center text-white border-2transition delay-25 ease-in-out rounded-lg cursor-pointer'>
+          {/* display stock ticker */}
+          <div className='flex h-full items-center gap-x-2 md:gap-1 text-xs md:text-sm '>
+            <li className='w-1/3'>
+              <img
+                className='w-max md:w-12 h-8 md:h-max md:mx-2 rounded-lg '
+                src={companyDetails[0]?.image}
+                alt={companyDetails}></img>
             </li>
+            <div className='flex flex-col text-xs md:text-base'>
+              <span className='hidden md:inline text-lightBlue'>
+                {stockData[0]['name']?.split(' ')[0]?.split(',')?.join('')}
+              </span>
+              <li className='text-xs md:text-base h-full items-center flex '>
+                {name}
+              </li>
+            </div>
           </div>
-        </div>
 
-        {/* display current price */}
-        {stockData[0] && stockData[0]['changesPercentage'] && (
-          <li
-            className={`flex items-center h-full gap-1 text-xs md:text-base ${
-              stockData[0]['changesPercentage'] > 0
-                ? 'w-max bg-green rounded-md p-1'
-                : 'w-max bg-red rounded-md p-1'
-            }`}>
-            ${stockData[0]['price']?.toFixed(2)}
-            {stockData[0]['changesPercentage'] > 0 ? (
-              <GoTriangleUp size={25}></GoTriangleUp>
-            ) : (
-              <GoTriangleDown size={25}></GoTriangleDown>
-            )}
+          {/* display current price */}
+          {stockData[0] && stockData[0]['changesPercentage'] && (
+            <li
+              className={`flex items-center h-full gap-1 text-xs md:text-base ${
+                stockData[0]['changesPercentage'] > 0
+                  ? 'w-max bg-green rounded-md p-1'
+                  : 'w-max bg-red rounded-md p-1'
+              }`}>
+              ${stockData[0]['price']?.toFixed(2)}
+              {stockData[0]['changesPercentage'] > 0 ? (
+                <GoTriangleUp size={25}></GoTriangleUp>
+              ) : (
+                <GoTriangleDown size={25}></GoTriangleDown>
+              )}
+            </li>
+          )}
+
+          {/* display 24hr percentage change */}
+          <li className={`text-xs md:text-base h-full items-center flex `}>
+            {stockData[0]['changesPercentage']?.toFixed(2)}%
           </li>
-        )}
-
-        {/* display 24hr percentage change */}
-        <li className={`text-xs md:text-base h-full items-center flex `}>
-          {stockData[0]['changesPercentage']?.toFixed(2)}%
-        </li>
-        <li className='text-md h-full md:gap-6 gap-4 items-center justify-around flex'>
-          <span>
-            <button
-              onClick={handleAdd}
-              className='h-8 w-16 rounded-lg bg-primary border-2 opacity-50 hover:border-lightBlue hover:opacity-100  delay-25 ease-out transition text-white'>
-              Add
-            </button>
-          </span>
-          <span>
-            <AiOutlineArrowsAlt
-              className='cursor-pointer md:hover:scale-110 transition text-lightBlue ease-in-out delay-25 hover:opacity-70 '
-              onClick={handleOnClick}
-              size={25}></AiOutlineArrowsAlt>
-          </span>
-        </li>
-      </ul>
+          <li className='text-md h-full md:gap-6 gap-4 items-center justify-around flex'>
+            <span>
+              <button
+                onClick={handleAdd}
+                className='h-8 w-16 rounded-lg bg-primary border-2 opacity-50 hover:border-lightBlue hover:opacity-100  delay-25 ease-out transition text-white'>
+                Add
+              </button>
+            </span>
+            <span>
+              <AiOutlineArrowsAlt
+                className='cursor-pointer md:hover:scale-110 transition text-lightBlue ease-in-out delay-25 hover:opacity-70 '
+                onClick={handleOnClick}
+                size={25}></AiOutlineArrowsAlt>
+            </span>
+          </li>
+        </ul>
+      </>
     );
   } else if (toggle && companyDetails) {
     /**
      * stock more info toggled
      */
     info = (
-      <div className='flex flex-col w-full pt-2 md:pt-0 transition delay-25 ease-in-out rounded-lg '>
+      <div className='flex flex-col pt-2 md:pt-0 transition delay-25 ease-in-out rounded-lg '>
         <div className=' w-full py-2 h-full'>
           <ul className='h-full grid grid-cols-4 md:mr-0 content-center text-white px-2'>
             {/* display stock ticker */}
@@ -252,7 +287,7 @@ export const SingleStockContainer: React.FC<Props> = ({ name }) => {
             {stockData[0]['name']}
           </div>
         </div>
-        <div className='w-full mb-4'>
+        <div className='mb-4 sm:max-w-2xl md:max-w-none'>
           {/* SHOW MORE INFO ABOUT STOCK SEARCHED*/}
           <StockMoreInfo
             stockNews={stockNews}
@@ -269,7 +304,7 @@ export const SingleStockContainer: React.FC<Props> = ({ name }) => {
   }
   return (
     <nav className='w-full h-full border-lightBlue hover:rounded-xl '>
-      {info}
+      <div className=''>{info}</div>
 
       {error && (
         <Collapse in={open}>

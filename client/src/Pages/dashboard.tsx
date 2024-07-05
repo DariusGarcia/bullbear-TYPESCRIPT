@@ -67,7 +67,7 @@ export default function Dashboard(): JSX.Element {
     {/* prettier-ignore */}
       <div className='flex h-full md:pt-2 md:min-h-screen bg-grey'>
         {/* Narrow sidebar */}
-        <div className='  hidden w-28 overflow-y-auto md:block'>
+        <div className=' hidden w-28 overflow-y-auto md:block'>
           <div className='flex w-full flex-col items-center py-6'>
             <div className='flex flex-shrink-0 items-center '>
               <h2 className='h-full w-full capitalize text-sm text-white'>
@@ -198,7 +198,7 @@ export default function Dashboard(): JSX.Element {
         </Transition.Root>
 
         {/* Content area */}
-        <div className='flex  flex-1 h-full flex-col'>
+        <div className='w-12 flex flex-1 h-full flex-col '>
           <header className='w-full'>
             <div className='relative z-10 flex h-16 flex-shrink-0  bg-grey  shadow-sm'>
               <button type='button' className=' px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden' onClick={() => setMobileMenuOpen(true)}>
@@ -242,18 +242,18 @@ export default function Dashboard(): JSX.Element {
                 <h1 id='primary-heading' className='sr-only'>
                   Photos
                 </h1>
-                {/* Your content */}                 
-                  <SearchStockContainer ticker={ticker} />
-                <div className='block my-36 py-8 bg-grey md:my-0 md:hidden'>
+                {/* Your content */}<div className=''>    
+                  <SearchStockContainer ticker={ticker} /></div>
+                {/* <div className='block my-36 py-8 bg-grey md:my-0 md:hidden'>
                   <Watchlist />
-                </div>
+                </div> */}
               </section>
             </main>
             {/* Secondary column (hidden on smaller screens) */}
-            <aside className='hidden md:block w-96 px-4 lg:mx-40 pt-2 overflow-x-hidden rounded-md  bg-grey3 '>
+            {/* <aside className='hidden md:block w-96 px-4 lg:mx-40 pt-2 overflow-x-hidden rounded-md  bg-grey3 '> */}
               {/* Your content */}
-              <Watchlist />
-            </aside>
+              {/* <Watchlist /> */}
+            {/* </aside> */}
           </div>
         </div>
       </div>

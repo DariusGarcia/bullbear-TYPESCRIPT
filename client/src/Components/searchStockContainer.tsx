@@ -16,11 +16,11 @@ export default function SearchStockContainer(props: Props): JSX.Element {
 
   return (
     // prettier-ignore
-    <div key='stock-container' className='flex flex-col w-full  px-2 md:px-0  md:justify-evenly'>
-      <div className='flex flex-col w-full md:flex-row md:px-0 md:justify-evenly  '>
+    <div key='stock-container' className='flex flex-col w-full px-2 md:px-0 md:justify-evenly'>
+      <div className='flex flex-col w-full md:flex-row md:px-0 md:justify-evenly'>
         <section className='flex flex-col md:h-full md:w-full mt-4 '>
-          <header className='flex mb-4 md:mb-8 gap-8 h-max flex-row items-center text-white  '>
-            <h2 className='flex flex-row items-center gap-4 md:mb-0 text-2xl md:text-3xl '>
+          <header className='flex mb-4 md:mb-8 gap-8 h-max flex-row items-center text-white'>
+            <h2 className='flex flex-row items-center gap-4 md:mb-0 text-2xl md:text-3xl'>
               Stock Screener
             </h2>
             <h3 className='flex md:mb-0 items-center md:text-xl text-sm opacity-50 '>
@@ -44,7 +44,7 @@ export default function SearchStockContainer(props: Props): JSX.Element {
                   </span>
                   {ticker && ticker.length > 0 ? (
                     <span className=''>
-                      <li key='changeLabel' className='h-full items-center justify-end flex  md:text-base'>
+                      <li key='changeLabel' className='h-full items-center justify-start flex md:text-base'>
                         Change
                       </li>
                     </span>

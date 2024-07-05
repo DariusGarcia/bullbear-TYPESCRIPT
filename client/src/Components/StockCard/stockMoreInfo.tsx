@@ -33,7 +33,7 @@ export default function StockMoreInfo(props: Props): JSX.Element {
         companyDetails.length > 0 &&
         stockPeers &&
         stockRatings && (
-          <div className='px-4 text-white w-full h-full overflow-hidden'>
+          <div className='px-4 text-white h-full '>
             {/* Displays stock Daily Chart */}
             <StockChart stock={ticker} stockData={stockData} />
 
